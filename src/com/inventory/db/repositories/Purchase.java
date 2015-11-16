@@ -103,7 +103,8 @@ public class Purchase {
         for(ProductInfo productInfo:productList)
         {
             try (EasyStatement stmt = new EasyStatement(connection, QueryManager.ADD_SHOWROOM_STOCK)) {
-                stmt.setString(QueryField.ORDER_NO, purchaseInfo.getOrderNo());
+                stmt.setString(QueryField.PURCHASE_ORDER_NO, purchaseInfo.getOrderNo());
+                stmt.setString(QueryField.SALE_ORDER_NO, null);
                 stmt.setInt(QueryField.PRODUCT_ID, productInfo.getId());
                 stmt.setLong(QueryField.STOCK_IN, productInfo.getQuantity());
                 stmt.setLong(QueryField.STOCK_OUT, 0);

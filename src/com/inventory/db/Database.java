@@ -114,21 +114,28 @@ public class Database {
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.address_types"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.users_addressess"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.suppliers"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.table.customers"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.purchase_order_statuses"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.purchase_orders"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.po_warehouse_products"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.ws_transaction_categories"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.warehouse_stocks"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.po_showroom_products"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.table.sale_order_statuses"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.table.sale_orders"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.table.sale_order_products"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.ss_transaction_categories"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.showroom_stocks"));
             
             //create relations
             statement.executeUpdate(DbSetupQueryProvider.get("db.rel.suppliers"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.rel.customers"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.rel.purchase_orders"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.rel.po_warehouse_products"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.rel.warehouse_stocks"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.rel.po_showroom_products"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.rel.sale_orders"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.rel.sale_order_products"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.rel.showroom_stocks"));
             
             //insert data
@@ -137,6 +144,7 @@ public class Database {
             statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.address_types"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.purchase_order_statuses"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.ws_transaction_categories"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.sale_order_statuses"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.ss_transaction_categories"));
         }
     }

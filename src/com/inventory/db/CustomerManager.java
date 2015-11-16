@@ -5,11 +5,11 @@
  */
 package com.inventory.db;
 
-import com.inventory.bean.SupplierInfo;
+import com.inventory.bean.CustomerInfo;
 import com.inventory.db.query.helper.EasyStatement;
-import com.inventory.db.repositories.Product;
-import com.inventory.db.repositories.User;
+import com.inventory.db.repositories.Customer;
 import com.inventory.db.repositories.Supplier;
+import com.inventory.db.repositories.User;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -20,15 +20,11 @@ import org.slf4j.LoggerFactory;
  *
  * @author nazmul hasan
  */
-public class SupplierManager {
+public class CustomerManager {
     private User user;
-    private Supplier supplier;
+    private Customer customer;
     private final Logger logger = LoggerFactory.getLogger(EasyStatement.class);
-    /**
-     * This method will create a new supplier
-     * @param supplierInfo, 
-     */
-    public void createSupplier(SupplierInfo supplierInfo)
+    public void createCustomer(CustomerInfo customerInfo)
     {
         //create a new user
         Connection connection = null;
@@ -37,13 +33,14 @@ public class SupplierManager {
             connection.setAutoCommit(false);
             
             //right now group id constant. Later update it from configuraiton file
-            supplierInfo.getUserInfo().setGroupId(1);
-            user = new User(connection);
-            int userId = user.createUser(supplierInfo.getUserInfo()); 
+            customerInfo.getUserInfo().setGroupId(2);
             
-            supplierInfo.getUserInfo().setId(userId);
-            supplier = new Supplier(connection);
-            supplier.createSupplier(supplierInfo);
+            user = new User(connection);
+            int userId = user.createUser(customerInfo.getUserInfo()); 
+            
+            customerInfo.getUserInfo().setId(userId);
+            customer = new Customer(connection);
+            customer.createCustomer(customerInfo);
 
             connection.commit();
             connection.close();
@@ -59,22 +56,5 @@ public class SupplierManager {
         } catch (DBSetupException ex) {
             logger.error(ex.getMessage());
         }
-        //add user under a group
-        //add address
-        //add supplier info
-    }
-    
-    /**
-     * This method will return all suppliers
-     * 
-     */
-    public void getAllSuppliers()
-    {
-    
-    }
-    
-    public void searchSupplier()
-    {
-    
     }
 }

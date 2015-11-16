@@ -20,6 +20,7 @@ public class ProductInfo {
     private long quantity;
     private long unitPrice;
     private long discount;
+    private String purchaseOrderNo;
     public ProductInfo()
     {
     
@@ -104,5 +105,12 @@ public class ProductInfo {
     public void setDiscount(long discount) {
         this.discount = discount;
     }
-    
+
+    public String getPurchaseOrderNo() {
+        return purchaseOrderNo;
+    }
+
+    public void setPurchaseOrderNo(String purchaseOrderNo) {
+        this.purchaseOrderNo = purchaseOrderNo;
+    }    
 }

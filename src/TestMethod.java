@@ -1,12 +1,16 @@
 
 import com.inventory.bean.AddressInfo;
+import com.inventory.bean.CustomerInfo;
 import com.inventory.bean.ProductInfo;
 import com.inventory.bean.PurchaseInfo;
+import com.inventory.bean.SaleInfo;
 import com.inventory.bean.SupplierInfo;
 import com.inventory.bean.UserInfo;
+import com.inventory.db.CustomerManager;
 import com.inventory.db.Database;
 import com.inventory.db.ProductManager;
 import com.inventory.db.PurchaseManager;
+import com.inventory.db.SaleManager;
 import com.inventory.db.SupplierManager;
 import com.inventory.exceptions.DBSetupException;
 import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
@@ -27,18 +31,29 @@ import java.util.List;
 public class TestMethod {
     public static void main(String args[]) throws DBSetupException, SQLException
     {
+        int customerUserId = 7338697;
+        int supplierUserId = 9592519;
         //Database.getInstance();
         
-        /*ProductInfo productInfo = new ProductInfo();
-        productInfo.setName("a3");
-        productInfo.setCode("b3");
-        productInfo.setLength("c3");
-        productInfo.setWidth("d3");
-        productInfo.setHeight("e3");
-        productInfo.setWeight("f3");
+        /*ProductInfo productInfo1 = new ProductInfo();
+        productInfo1.setName("a1");
+        productInfo1.setCode("b1");
+        productInfo1.setLength("c1");
+        productInfo1.setWidth("d1");
+        productInfo1.setHeight("e1");
+        productInfo1.setWeight("f1");
         
         ProductManager productManager = new ProductManager();
-        productManager.createProduct(productInfo);*/
+        productManager.createProduct(productInfo1);
+        
+        ProductInfo productInfo2 = new ProductInfo();
+        productInfo2.setName("a2");
+        productInfo2.setCode("b2");
+        productInfo2.setLength("c2");
+        productInfo2.setWidth("d2");
+        productInfo2.setHeight("e2");
+        productInfo2.setWeight("f2");
+        productManager.createProduct(productInfo2);*/
         
         /*List<ProductInfo> productList = productManager.getAllProducts();*/
           
@@ -49,8 +64,6 @@ public class TestMethod {
           userInfo.setPhone("phone2");
           userInfo.setFax("fax2");
           userInfo.setWebsite("website2");
-          
-          userInfo.setGroupId(1);
           
           AddressInfo addressInfo = new AddressInfo();
           addressInfo.setAddress("niketon");
@@ -87,7 +100,7 @@ public class TestMethod {
           
           PurchaseInfo purchaseInfo = new PurchaseInfo();
           purchaseInfo.setProductList(productList);
-          purchaseInfo.setSupplierUserId(4467129);
+          purchaseInfo.setSupplierUserId(supplierUserId);
           purchaseInfo.setOrderNo("order1");
           purchaseInfo.setStatusId(1);
           purchaseInfo.setRemarks("remarks1");
@@ -96,5 +109,58 @@ public class TestMethod {
           
           PurchaseManager purchaseManager = new PurchaseManager();
           purchaseManager.addPurchaseOrder(purchaseInfo);*/
+        
+          /*UserInfo userInfo = new UserInfo();
+          userInfo.setFirstName("fn3");
+          userInfo.setLastName("ln5");
+          userInfo.setEmail("email5");
+          userInfo.setPhone("phone5");
+          userInfo.setFax("fax5");
+          userInfo.setWebsite("website5");
+          
+          AddressInfo addressInfo = new AddressInfo();
+          addressInfo.setAddress("niketon");
+          addressInfo.setCity("dhaka");
+          addressInfo.setState("dhaka");
+          addressInfo.setZip("1507");
+          
+          List<AddressInfo> addresses = new ArrayList<>();
+          addresses.add(addressInfo);
+          userInfo.setAddresses(addresses);
+          
+          CustomerInfo customerInfo = new CustomerInfo();
+          customerInfo.setUserInfo(userInfo);
+          
+          CustomerManager customerManager = new CustomerManager();
+          customerManager.createCustomer(customerInfo);*/
+        
+          ProductInfo productInfo1 = new ProductInfo();
+          productInfo1.setId(1);
+          productInfo1.setUnitPrice(100);
+          productInfo1.setQuantity(500);
+          productInfo1.setDiscount(0);
+          productInfo1.setPurchaseOrderNo("order1");
+          
+          ProductInfo productInfo2 = new ProductInfo();
+          productInfo2.setId(2);
+          productInfo2.setUnitPrice(100);
+          productInfo2.setQuantity(500);
+          productInfo2.setDiscount(0);
+          productInfo2.setPurchaseOrderNo("order1");
+          
+          List<ProductInfo> productList = new ArrayList<>();
+          productList.add(productInfo1);
+          productList.add(productInfo2);
+          
+          SaleInfo saleInfo = new SaleInfo();
+          saleInfo.setProductList(productList);
+          saleInfo.setCustomerUserId(customerUserId);
+          saleInfo.setOrderNo("order2");
+          saleInfo.setStatusId(1);
+          saleInfo.setRemarks("remarks2");
+          saleInfo.setSaleDate(123);
+          
+          SaleManager saleManager = new SaleManager();
+          saleManager.addSaleOrder(saleInfo);
     }
 }

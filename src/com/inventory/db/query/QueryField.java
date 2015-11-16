@@ -42,4 +42,8 @@ public class QueryField {
     public static final String STOCK_IN = "stock_in";
     public static final String STOCK_OUT = "stock_out";
     public static final String TRANSACTION_CATEGORY_ID = "transaction_category_id";
+    public static final String SALE_ORDER_NO = "sale_order_no";
+    public static final String PURCHASE_ORDER_NO = "purchase_order_no";
+    public static final String CUSTOMER_USER_ID = "customer_user_id";
+    public static final String SALE_DATE = "sale_date";
 }
