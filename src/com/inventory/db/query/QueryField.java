@@ -10,6 +10,13 @@ package com.inventory.db.query;
  * @author alamgir
  */
 public class QueryField {
+    public static final String NAME = "name";
+    public static final String CODE = "code";
+    public static final String LENGTH = "length";
+    public static final String WIDTH = "width";
+    public static final String HEIGHT = "height";
+    public static final String WEIGHT = "weight";
+    
     public static final String IP_ADDRESS = "ip_address";
     public static final String USER_ID = "user_id";
     public static final String MAX_MEMBERS = "max_members";

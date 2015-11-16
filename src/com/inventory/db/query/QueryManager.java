@@ -10,7 +10,10 @@ package com.inventory.db.query;
  * @author alamgir
  */
 public final class QueryManager {
-    public static final String CREATE_USER = "db.query.create-user";
+    public static final String CREATE_PRODUCT = "db.query.create-product";
+    public static final String GET_ALL_PRODUCTS = "db.query.get-all-products";
+    
+    
     public static final String CREATE_SUBSCRIBER = "db.query.create-subscriber";
     public static final String ADD_SUBSCRIBER_SERVICE = "db.query.add-subscriber-service";
     public static final String ADD_CALLBACK_FUNCTION = "db.query.add-callback-function";
