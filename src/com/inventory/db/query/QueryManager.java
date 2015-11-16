@@ -12,6 +12,10 @@ package com.inventory.db.query;
 public final class QueryManager {
     public static final String CREATE_PRODUCT = "db.query.create-product";
     public static final String GET_ALL_PRODUCTS = "db.query.get-all-products";
+    public static final String CREATE_USER = "db.query.create-user";
+    public static final String ADD_USER_TO_GROUP = "db.query.add-user-to-group";
+    public static final String ADD_USER_ADDRESS = "db.query.add-user-address";
+    public static final String CREATE_SUPPLIER = "db.query.create-supplier";
     
     
     public static final String CREATE_SUBSCRIBER = "db.query.create-subscriber";

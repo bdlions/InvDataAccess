@@ -16,9 +16,23 @@ public class QueryField {
     public static final String WIDTH = "width";
     public static final String HEIGHT = "height";
     public static final String WEIGHT = "weight";
+    public static final String ID = "id";
+    public static final String FIRST_NAME = "first_name";
+    public static final String LAST_NAME = "last_name";
+    public static final String EMAIL = "email";
+    public static final String PHONE = "phone";
+    public static final String FAX = "fax";
+    public static final String WEBSITE = "website";
+    public static final String USER_ID = "user_id";
+    public static final String GROUP_ID = "group_id";
+    public static final String ADDRESS_TYPE_ID = "address_type_id";
+    public static final String ADDRESS = "address";
+    public static final String CITY = "city";
+    public static final String STATE = "state";
+    public static final String ZIP = "zip";
+    public static final String REMARKS = "remarks";
     
     public static final String IP_ADDRESS = "ip_address";
-    public static final String USER_ID = "user_id";
     public static final String MAX_MEMBERS = "max_members";
     public static final String CURRENT_MEMBERS = "current_members";
     public static final String REGISTRATION_DATE = "registration_date";
