@@ -16,6 +16,11 @@ public final class QueryManager {
     public static final String ADD_USER_TO_GROUP = "db.query.add-user-to-group";
     public static final String ADD_USER_ADDRESS = "db.query.add-user-address";
     public static final String CREATE_SUPPLIER = "db.query.create-supplier";
+    public static final String ADD_PURCHASE_ORDER = "db.query.add-purchase-order";
+    public static final String ADD_WAREHOUSE_PURCHASED_PRODUCT_LIST = "db.query.add-warehouse-purchased-product-list";
+    public static final String ADD_WAREHOUSE_STOCK = "db.query.add-warehouse-stock";
+    public static final String ADD_SHOWROOM_PURCHASED_PRODUCT_LIST = "db.query.add-showroom-purchased-product-list";
+    public static final String ADD_SHOWROOM_STOCK = "db.query.add-showroom-stock";
     
     
     public static final String CREATE_SUBSCRIBER = "db.query.create-subscriber";

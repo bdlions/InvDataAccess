@@ -17,6 +17,9 @@ public class ProductInfo {
     private String width;
     private String height;
     private String weight;
+    private long quantity;
+    private long unitPrice;
+    private long discount;
     public ProductInfo()
     {
     
@@ -76,6 +79,30 @@ public class ProductInfo {
 
     public void setWeight(String weight) {
         this.weight = weight;
+    }
+
+    public long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(long quantity) {
+        this.quantity = quantity;
+    }
+
+    public long getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(long unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public long getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(long discount) {
+        this.discount = discount;
     }
     
 }
