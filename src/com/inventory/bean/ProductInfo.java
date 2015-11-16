@@ -10,7 +10,7 @@ package com.inventory.bean;
  * @author nazmul hasan
  */
 public class ProductInfo {
-    private int Id;
+    private int id;
     private String name;
     private String code;
     private String length;
@@ -23,11 +23,11 @@ public class ProductInfo {
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int Id) {
-        this.Id = Id;
+        this.id = Id;
     }
 
     public String getName() {
