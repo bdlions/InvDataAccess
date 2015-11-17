@@ -6,13 +6,16 @@
 package com.inventory.db.repositories;
 
 import com.inventory.bean.ProductInfo;
+import com.inventory.bean.PurchaseInfo;
 import com.inventory.bean.SaleInfo;
 import com.inventory.db.query.QueryField;
 import com.inventory.db.query.QueryManager;
 import com.inventory.db.query.helper.EasyStatement;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -78,5 +81,22 @@ public class Sale {
                 stmt.executeUpdate();
             }
         }
+    }
+    
+    public List<SaleInfo> getAllSaleOrders() throws DBSetupException, SQLException
+    {
+        List<SaleInfo> saleList = new ArrayList<>();
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_ALL_SALE_ORDERS)){
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next())
+            {
+                SaleInfo saleInfo = new SaleInfo();
+                saleInfo.setOrderNo(rs.getString(QueryField.ORDER_NO));
+                saleInfo.setSaleDate(rs.getInt(QueryField.SALE_DATE));
+                saleInfo.setRemarks(rs.getString(QueryField.REMARKS));
+                saleList.add(saleInfo);
+            }
+        }
+        return saleList;
     }
 }

@@ -5,6 +5,7 @@
  */
 package com.inventory.db;
 
+import com.inventory.bean.PurchaseInfo;
 import com.inventory.bean.SaleInfo;
 import com.inventory.db.query.helper.EasyStatement;
 import com.inventory.db.repositories.Purchase;
@@ -12,6 +13,8 @@ import com.inventory.db.repositories.Sale;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,5 +49,30 @@ public class SaleManager {
         } catch (DBSetupException ex) {
             logger.error(ex.getMessage());
         }
+    }
+    
+    public List<SaleInfo> getAllSaleOrders()
+    {
+        List<SaleInfo> saleList = new ArrayList<>();
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+            
+            sale = new Sale(connection);
+            saleList = sale.getAllSaleOrders();
+            
+            connection.close();
+        } catch (SQLException ex) {
+            try {
+                if(connection != null){
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+        return saleList;
     }
 }

@@ -171,5 +171,11 @@ public class TestMethod {
         // ------------------------ Returning customer list --------------------------//
 //        CustomerManager customerManager = new CustomerManager();
 //        List<CustomerInfo> customerList = customerManager.getAllCustomers();
+        // ------------------------ Returning Purchase list --------------------------//
+//        PurchaseManager purchaseManager = new PurchaseManager();
+//        List<PurchaseInfo> purchaseList = purchaseManager.getAllPurchaseOrders();
+        // ------------------------ Returning Sale list --------------------------//
+//        SaleManager saleManager = new SaleManager();
+//        List<SaleInfo> saleList = saleManager.getAllSaleOrders();
     }
 }

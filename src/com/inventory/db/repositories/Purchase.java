@@ -12,7 +12,9 @@ import com.inventory.db.query.QueryManager;
 import com.inventory.db.query.helper.EasyStatement;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -113,5 +115,22 @@ public class Purchase {
                 stmt.executeUpdate();
             }
         }
+    }
+    
+    public List<PurchaseInfo> getAllPurchaseOrders() throws DBSetupException, SQLException
+    {
+        List<PurchaseInfo> purchaseList = new ArrayList<>();
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_ALL_PURCHASE_ORDERS)){
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next())
+            {
+                PurchaseInfo purchaseInfo = new PurchaseInfo();
+                purchaseInfo.setOrderNo(rs.getString(QueryField.ORDER_NO));
+                purchaseInfo.setOrderDate(rs.getInt(QueryField.ORDER_DATE));
+                purchaseInfo.setRemarks(rs.getString(QueryField.REMARKS));
+                purchaseList.add(purchaseInfo);
+            }
+        }
+        return purchaseList;
     }
 }

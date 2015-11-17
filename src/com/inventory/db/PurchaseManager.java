@@ -11,6 +11,8 @@ import com.inventory.db.repositories.Purchase;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
@@ -43,12 +45,31 @@ public class PurchaseManager {
             }
         } catch (DBSetupException ex) {
             logger.error(ex.getMessage());
-        }
-        //insert into purchase order 
-        //add warehouse purchased product list
-        //add warehouse stock
-        //forward from ware house stock
-        //add showroom purchased product list
-        //add showroom stock
+        }        
+    }
+    
+    public List<PurchaseInfo> getAllPurchaseOrders()
+    {
+        List<PurchaseInfo> purchaseList = new ArrayList<>();
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+            
+            purchase = new Purchase(connection);
+            purchaseList = purchase.getAllPurchaseOrders();
+            
+            connection.close();
+        } catch (SQLException ex) {
+            try {
+                if(connection != null){
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }   
+        return purchaseList;
     }
 }
