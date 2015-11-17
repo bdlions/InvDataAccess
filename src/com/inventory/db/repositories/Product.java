@@ -47,7 +47,7 @@ public class Product {
     public List<ProductInfo> getAllProducts()throws DBSetupException, SQLException
     {
         List<ProductInfo> productList = new ArrayList<>();
-        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_ALL_PRODUCTS);){
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_ALL_PRODUCTS)){
             ResultSet rs = stmt.executeQuery();
             while(rs.next())
             {

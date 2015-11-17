@@ -24,5 +24,7 @@ public final class QueryManager {
     public static final String ADD_SALE_ORDER = "db.query.add-sale-order";
     public static final String ADD_SALE_ORDER_PRODUCT_LIST = "db.query.add-sale-order-product-list";
     public static final String ADD_SHOWROOM_STOCK = "db.query.add-showroom-stock";
+    public static final String GET_ALL_SUPPLIERS = "db.query.get-all-suppliers";
+    public static final String GET_ALL_CUSTOMERS = "db.query.get-all-customers";
     
 }

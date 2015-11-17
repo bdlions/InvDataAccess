@@ -6,12 +6,16 @@
 package com.inventory.db.repositories;
 
 import com.inventory.bean.CustomerInfo;
+import com.inventory.bean.UserInfo;
 import com.inventory.db.query.QueryField;
 import com.inventory.db.query.QueryManager;
 import com.inventory.db.query.helper.EasyStatement;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -32,5 +36,29 @@ public class Customer {
             stmt.setInt(QueryField.USER_ID, customerInfo.getUserInfo().getId());
             stmt.executeUpdate();
         }
+    }
+    
+    public List<CustomerInfo> getAllCustomers()throws DBSetupException, SQLException
+    {
+        List<CustomerInfo> customerList = new ArrayList<>();
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_ALL_CUSTOMERS))
+        {
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next())
+            {
+                CustomerInfo customerInfo = new CustomerInfo();
+                UserInfo userInfo = new UserInfo();
+                userInfo.setId(rs.getInt(QueryField.USER_ID));
+                userInfo.setFirstName(rs.getString(QueryField.FIRST_NAME));
+                userInfo.setLastName(rs.getString(QueryField.LAST_NAME));
+                userInfo.setEmail(rs.getString(QueryField.EMAIL));
+                userInfo.setPhone(rs.getString(QueryField.PHONE));
+                userInfo.setFax(rs.getString(QueryField.FAX));
+                userInfo.setWebsite(rs.getString(QueryField.WEBSITE));
+                customerInfo.setUserInfo(userInfo);
+                customerList.add(customerInfo);
+            }
+        }
+        return customerList;
     }
 }

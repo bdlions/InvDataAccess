@@ -7,12 +7,13 @@ package com.inventory.db;
 
 import com.inventory.bean.SupplierInfo;
 import com.inventory.db.query.helper.EasyStatement;
-import com.inventory.db.repositories.Product;
 import com.inventory.db.repositories.User;
 import com.inventory.db.repositories.Supplier;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,15 +67,32 @@ public class SupplierManager {
     
     /**
      * This method will return all suppliers
-     * 
+     * @return list, supplier list
      */
-    public void getAllSuppliers()
+    public List<SupplierInfo> getAllSuppliers()
     {
-    
+        List<SupplierInfo> supplierList = new ArrayList<>(); 
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+            
+            supplier = new Supplier(connection);
+            supplierList = supplier.getAllSuppliers();
+
+            connection.close();
+        } catch (SQLException ex) {
+            try {
+                if(connection != null){
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+        return supplierList;
     }
     
-    public void searchSupplier()
-    {
     
-    }
 }

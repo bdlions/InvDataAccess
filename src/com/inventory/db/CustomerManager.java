@@ -6,6 +6,7 @@
 package com.inventory.db;
 
 import com.inventory.bean.CustomerInfo;
+import com.inventory.bean.SupplierInfo;
 import com.inventory.db.query.helper.EasyStatement;
 import com.inventory.db.repositories.Customer;
 import com.inventory.db.repositories.Supplier;
@@ -13,6 +14,8 @@ import com.inventory.db.repositories.User;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,5 +59,34 @@ public class CustomerManager {
         } catch (DBSetupException ex) {
             logger.error(ex.getMessage());
         }
+    }
+    
+    /**
+     * This method will return all customers
+     * @return list, customer list
+     */
+    public List<CustomerInfo> getAllCustomers()
+    {
+        List<CustomerInfo> customerList = new ArrayList<>(); 
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+            
+            customer = new Customer(connection);
+            customerList = customer.getAllCustomers();
+
+            connection.close();
+        } catch (SQLException ex) {
+            try {
+                if(connection != null){
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+        return customerList;
     }
 }
