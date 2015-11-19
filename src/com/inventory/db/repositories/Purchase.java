@@ -7,10 +7,12 @@ package com.inventory.db.repositories;
 
 import com.inventory.bean.ProductInfo;
 import com.inventory.bean.PurchaseInfo;
+import com.inventory.bean.SupplierInfo;
 import com.inventory.db.query.QueryField;
 import com.inventory.db.query.QueryManager;
 import com.inventory.db.query.helper.EasyStatement;
 import com.inventory.exceptions.DBSetupException;
+import com.inventory.utility.Utils;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,6 +24,7 @@ import java.util.List;
  * @author nazmul hasan
  */
 public class Purchase {
+    private Utils utils = new Utils();
     private Connection connection;
     /***
      * Restrict to call without connection
@@ -36,8 +39,8 @@ public class Purchase {
             stmt.setString(QueryField.ORDER_NO, purchaseInfo.getOrderNo());
             stmt.setInt(QueryField.SUPPLIER_USER_ID, purchaseInfo.getSupplierUserId());
             stmt.setInt(QueryField.STATUS_ID, purchaseInfo.getStatusId());
-            stmt.setInt(QueryField.ORDER_DATE, purchaseInfo.getOrderDate());
-            stmt.setInt(QueryField.REQUESTED_SHIP_DATE, purchaseInfo.getRequestShippedDate());
+            stmt.setLong(QueryField.ORDER_DATE, utils.getCurrentUnixTime());
+            stmt.setLong(QueryField.REQUESTED_SHIP_DATE, purchaseInfo.getRequestShippedDate());
             stmt.setLong(QueryField.DISCOUNT, purchaseInfo.getDiscount());
             stmt.setString(QueryField.REMARKS, purchaseInfo.getRemarks());
             stmt.executeUpdate();
@@ -126,8 +129,12 @@ public class Purchase {
             {
                 PurchaseInfo purchaseInfo = new PurchaseInfo();
                 purchaseInfo.setOrderNo(rs.getString(QueryField.ORDER_NO));
-                purchaseInfo.setOrderDate(rs.getInt(QueryField.ORDER_DATE));
+                purchaseInfo.setOrderDate(utils.convertUnixToHuman(rs.getLong(QueryField.ORDER_DATE)));
                 purchaseInfo.setRemarks(rs.getString(QueryField.REMARKS));
+                SupplierInfo supplierInfo = new SupplierInfo();
+                supplierInfo.getUserInfo().setFirstName(rs.getString(QueryField.FIRST_NAME));
+                supplierInfo.getUserInfo().setLastName(rs.getString(QueryField.LAST_NAME));
+                purchaseInfo.setSupplierInfo(supplierInfo);
                 purchaseList.add(purchaseInfo);
             }
         }

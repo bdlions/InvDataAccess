@@ -14,7 +14,7 @@ public class SupplierInfo {
     private String remarks;
     public SupplierInfo()
     {
-    
+        userInfo = new UserInfo();
     }
 
     public UserInfo getUserInfo() {

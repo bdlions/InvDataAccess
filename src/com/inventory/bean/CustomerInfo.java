@@ -13,7 +13,7 @@ public class CustomerInfo {
     private UserInfo userInfo;
     public CustomerInfo()
     {
-    
+        userInfo = new UserInfo();
     }
 
     public UserInfo getUserInfo() {

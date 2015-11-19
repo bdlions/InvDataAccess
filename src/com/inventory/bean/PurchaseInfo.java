@@ -17,11 +17,12 @@ public class PurchaseInfo {
     private String orderNo;
     private int supplierUserId;
     private int statusId;
-    private int orderDate;
-    private int requestShippedDate;
+    private String orderDate;
+    private long requestShippedDate;
     private long discount;
     private String remarks;
     private List<ProductInfo> productList;
+    private SupplierInfo supplierInfo;
     public PurchaseInfo()
     {
         productList = new ArrayList<>();
@@ -59,19 +60,19 @@ public class PurchaseInfo {
         this.statusId = statusId;
     }
 
-    public int getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(int orderDate) {
+    public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
     }
 
-    public int getRequestShippedDate() {
+    public long getRequestShippedDate() {
         return requestShippedDate;
     }
 
-    public void setRequestShippedDate(int requestShippedDate) {
+    public void setRequestShippedDate(long requestShippedDate) {
         this.requestShippedDate = requestShippedDate;
     }
 
@@ -97,6 +98,14 @@ public class PurchaseInfo {
 
     public void setProductList(List<ProductInfo> productList) {
         this.productList = productList;
+    }
+
+    public SupplierInfo getSupplierInfo() {
+        return supplierInfo;
+    }
+
+    public void setSupplierInfo(SupplierInfo supplierInfo) {
+        this.supplierInfo = supplierInfo;
     }
     
 }
