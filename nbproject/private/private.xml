@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/InvDataAccess/src/com/inventory/bean/AddressInfo.java</file>
+            <file>file:/C:/xampp/htdocs/InvDataAccess/src/com/inventory/db/ProductManager.java</file>
+            <file>file:/C:/xampp/htdocs/InvDataAccess/src/com/inventory/bean/UserInfo.java</file>
+            <file>file:/C:/xampp/htdocs/InvDataAccess/src/com/inventory/bean/SupplierInfo.java</file>
+            <file>file:/C:/xampp/htdocs/InvDataAccess/src/com/inventory/bean/PurchaseInfo.java</file>
+            <file>file:/C:/xampp/htdocs/InvDataAccess/src/com/inventory/bean/ProductInfo.java</file>
+            <file>file:/C:/xampp/htdocs/InvDataAccess/src/com/inventory/bean/CustomerInfo.java</file>
+        </group>
     </open-files>
 </project-private>

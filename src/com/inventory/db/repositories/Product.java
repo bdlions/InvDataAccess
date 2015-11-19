@@ -52,6 +52,7 @@ public class Product {
             while(rs.next())
             {
                 ProductInfo productInfo = new ProductInfo();
+                productInfo.setId(rs.getInt(QueryField.ID));
                 productInfo.setName(rs.getString(QueryField.NAME));
                 productInfo.setCode(rs.getString(QueryField.CODE));
                 productInfo.setLength(rs.getString(QueryField.LENGTH));
