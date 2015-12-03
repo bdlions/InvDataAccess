@@ -183,9 +183,9 @@ public class TestMethod {
 //        SaleManager saleManager = new SaleManager();
 //        List<SaleInfo> saleList = saleManager.getAllSaleOrders();
         // ------------------------ Returning Current stock --------------------------//
-        List<ProductInfo> productList = new ArrayList<>();
-        StockManager stockManager = new StockManager();
-        productList = stockManager.getCurrentStocks();
+//        List<ProductInfo> productList = new ArrayList<>();
+//        StockManager stockManager = new StockManager();
+//        productList = stockManager.getCurrentStocks();
         System.out.println("Test completed.");
     }
 }
