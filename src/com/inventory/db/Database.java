@@ -107,6 +107,9 @@ public class Database {
             statement.executeUpdate(MessageFormat.format(DbSetupQueryProvider.get("db.use"), _dbName));
             
             //create tables
+            statement.executeUpdate(DbSetupQueryProvider.get("db.table.product_categories"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.table.product_types"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.table.uoms"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.products"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.groups"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.users"));
@@ -128,6 +131,7 @@ public class Database {
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.showroom_stocks"));
             
             //create relations
+            statement.executeUpdate(DbSetupQueryProvider.get("db.rel.products"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.rel.suppliers"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.rel.customers"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.rel.purchase_orders"));
@@ -139,6 +143,9 @@ public class Database {
             statement.executeUpdate(DbSetupQueryProvider.get("db.rel.showroom_stocks"));
             
             //insert data
+            statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.product_categories"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.product_types"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.uoms"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.groups"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.users"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.address_types"));

@@ -5,7 +5,10 @@
  */
 package com.inventory.db.repositories;
 
+import com.inventory.bean.ProductCategoryInfo;
 import com.inventory.bean.ProductInfo;
+import com.inventory.bean.ProductTypeInfo;
+import com.inventory.bean.UOMInfo;
 import com.inventory.db.query.QueryField;
 import com.inventory.db.query.QueryManager;
 import com.inventory.db.query.helper.EasyStatement;
@@ -30,16 +33,72 @@ public class Product {
         this.connection = connection;
     }
     
+    public List<ProductCategoryInfo> getAllProductCategories()throws DBSetupException, SQLException
+    {
+        List<ProductCategoryInfo> productCategoryList = new ArrayList<>();
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_ALL_PRODUCT_CATEGORIES)){
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next())
+            {
+                ProductCategoryInfo productCategoryInfo = new ProductCategoryInfo();
+                productCategoryInfo.setId(rs.getInt(QueryField.ID));
+                productCategoryInfo.setTitle(rs.getString(QueryField.TITLE));
+                productCategoryList.add(productCategoryInfo);
+            }
+        }
+        return productCategoryList;
+    }
+    
+    public List<ProductTypeInfo> getAllProductTypes()throws DBSetupException, SQLException
+    {
+        List<ProductTypeInfo> productTypeList = new ArrayList<>();
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_ALL_PRODUCT_TYPES)){
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next())
+            {
+                ProductTypeInfo productTypeInfo = new ProductTypeInfo();
+                productTypeInfo.setId(rs.getInt(QueryField.ID));
+                productTypeInfo.setTitle(rs.getString(QueryField.TITLE));
+                productTypeList.add(productTypeInfo);
+            }
+        }
+        return productTypeList;
+    }
+    
+    public List<UOMInfo> getAllUOMs()throws DBSetupException, SQLException
+    {
+        List<UOMInfo> uomList = new ArrayList<>();
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_ALL_UOMS)){
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next())
+            {
+                UOMInfo uomInfo = new UOMInfo();
+                uomInfo.setId(rs.getInt(QueryField.ID));
+                uomInfo.setTitle(rs.getString(QueryField.TITLE));
+                uomList.add(uomInfo);
+            }
+        }
+        return uomList;
+    }
+    
     public void createProduct(ProductInfo productInfo)throws DBSetupException, SQLException
     {
         
         try (EasyStatement stmt = new EasyStatement(connection, QueryManager.CREATE_PRODUCT)) {
+            //add some validation. If the values are not set then assign nulll instead of zero
+            stmt.setInt(QueryField.CATEGORY_ID, productInfo.getProductCategoryInfo().getId());
+            stmt.setInt(QueryField.TYPE_ID, productInfo.getProductTypeInfo().getId());
+            stmt.setInt(QueryField.STANDARD_UOM_ID, productInfo.getStandardUOM().getId());
+            stmt.setInt(QueryField.SALE_UOM_ID, productInfo.getSaleUOM().getId());
+            stmt.setInt(QueryField.PURCHASE_UOM_ID, productInfo.getPurchasingUOM().getId());
+            
             stmt.setString(QueryField.NAME, productInfo.getName());
             stmt.setString(QueryField.CODE, productInfo.getCode());
             stmt.setString(QueryField.LENGTH, productInfo.getLength());
             stmt.setString(QueryField.WIDTH, productInfo.getWidth());
             stmt.setString(QueryField.HEIGHT, productInfo.getHeight());
             stmt.setString(QueryField.WEIGHT, productInfo.getWeight());
+            stmt.setDouble(QueryField.UNIT_PRICE, productInfo.getUnitPrice());
             stmt.executeUpdate();
         }
     }
@@ -53,6 +112,8 @@ public class Product {
             {
                 ProductInfo productInfo = new ProductInfo();
                 productInfo.setId(rs.getInt(QueryField.ID));
+                productInfo.getProductCategoryInfo().setTitle(rs.getString(QueryField.PRODUCT_CATEGORY));
+                productInfo.getProductTypeInfo().setTitle(rs.getString(QueryField.PRODUCT_TYPE));
                 productInfo.setName(rs.getString(QueryField.NAME));
                 productInfo.setCode(rs.getString(QueryField.CODE));
                 productInfo.setLength(rs.getString(QueryField.LENGTH));

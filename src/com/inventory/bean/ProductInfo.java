@@ -17,13 +17,22 @@ public class ProductInfo {
     private String width;
     private String height;
     private String weight;
-    private long quantity;
-    private long unitPrice;
-    private long discount;
+    private double quantity;
+    private double unitPrice;
+    private double discount;
     private String purchaseOrderNo;
+    private ProductCategoryInfo productCategoryInfo;
+    private ProductTypeInfo productTypeInfo;
+    private UOMInfo standardUOM;
+    private UOMInfo saleUOM;
+    private UOMInfo purchasingUOM;
     public ProductInfo()
     {
-    
+        productCategoryInfo = new ProductCategoryInfo();
+        productTypeInfo = new ProductTypeInfo();
+        standardUOM = new UOMInfo();
+        saleUOM = new UOMInfo();
+        purchasingUOM = new UOMInfo();
     }
 
     public int getId() {
@@ -82,27 +91,27 @@ public class ProductInfo {
         this.weight = weight;
     }
 
-    public long getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(long quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
-    public long getUnitPrice() {
+    public double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(long unitPrice) {
+    public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
     }
 
-    public long getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(long discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 
@@ -112,5 +121,46 @@ public class ProductInfo {
 
     public void setPurchaseOrderNo(String purchaseOrderNo) {
         this.purchaseOrderNo = purchaseOrderNo;
-    }    
+    } 
+
+    public ProductCategoryInfo getProductCategoryInfo() {
+        return productCategoryInfo;
+    }
+
+    public void setProductCategoryInfo(ProductCategoryInfo productCategoryInfo) {
+        this.productCategoryInfo = productCategoryInfo;
+    }
+
+    public ProductTypeInfo getProductTypeInfo() {
+        return productTypeInfo;
+    }
+
+    public void setProductTypeInfo(ProductTypeInfo productTypeInfo) {
+        this.productTypeInfo = productTypeInfo;
+    }
+
+    public UOMInfo getStandardUOM() {
+        return standardUOM;
+    }
+
+    public void setStandardUOM(UOMInfo standardUOM) {
+        this.standardUOM = standardUOM;
+    }
+
+    public UOMInfo getSaleUOM() {
+        return saleUOM;
+    }
+
+    public void setSaleUOM(UOMInfo saleUOM) {
+        this.saleUOM = saleUOM;
+    }
+
+    public UOMInfo getPurchasingUOM() {
+        return purchasingUOM;
+    }
+
+    public void setPurchasingUOM(UOMInfo purchasingUOM) {
+        this.purchasingUOM = purchasingUOM;
+    }
+    
 }

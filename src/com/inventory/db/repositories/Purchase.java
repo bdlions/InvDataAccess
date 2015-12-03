@@ -41,7 +41,7 @@ public class Purchase {
             stmt.setInt(QueryField.STATUS_ID, purchaseInfo.getStatusId());
             stmt.setLong(QueryField.ORDER_DATE, utils.getCurrentUnixTime());
             stmt.setLong(QueryField.REQUESTED_SHIP_DATE, purchaseInfo.getRequestShippedDate());
-            stmt.setLong(QueryField.DISCOUNT, purchaseInfo.getDiscount());
+            stmt.setDouble(QueryField.DISCOUNT, purchaseInfo.getDiscount());
             stmt.setString(QueryField.REMARKS, purchaseInfo.getRemarks());
             stmt.executeUpdate();
         }
@@ -60,8 +60,8 @@ public class Purchase {
             try (EasyStatement stmt = new EasyStatement(connection, QueryManager.ADD_WAREHOUSE_PURCHASED_PRODUCT_LIST)) {
                 stmt.setInt(QueryField.PRODUCT_ID, productInfo.getId());
                 stmt.setString(QueryField.ORDER_NO, purchaseInfo.getOrderNo());
-                stmt.setLong(QueryField.UNIT_PRICE, productInfo.getUnitPrice());
-                stmt.setLong(QueryField.DISCOUNT, productInfo.getDiscount());            
+                stmt.setDouble(QueryField.UNIT_PRICE, productInfo.getUnitPrice());
+                stmt.setDouble(QueryField.DISCOUNT, productInfo.getDiscount());            
                 stmt.executeUpdate();
             }
         }
@@ -76,8 +76,8 @@ public class Purchase {
             try (EasyStatement stmt = new EasyStatement(connection, QueryManager.ADD_WAREHOUSE_STOCK)) {
                 stmt.setString(QueryField.ORDER_NO, purchaseInfo.getOrderNo());
                 stmt.setInt(QueryField.PRODUCT_ID, productInfo.getId());
-                stmt.setLong(QueryField.STOCK_IN, productInfo.getQuantity());
-                stmt.setLong(QueryField.STOCK_OUT, 0);
+                stmt.setDouble(QueryField.STOCK_IN, productInfo.getQuantity());
+                stmt.setDouble(QueryField.STOCK_OUT, 0);
                 //right now transaction category id constant. later update it from config file
                 stmt.setInt(QueryField.TRANSACTION_CATEGORY_ID, 1);           
                 stmt.executeUpdate();
@@ -94,8 +94,8 @@ public class Purchase {
             try (EasyStatement stmt = new EasyStatement(connection, QueryManager.ADD_SHOWROOM_PURCHASED_PRODUCT_LIST)) {
                 stmt.setInt(QueryField.PRODUCT_ID, productInfo.getId());
                 stmt.setString(QueryField.ORDER_NO, purchaseInfo.getOrderNo());
-                stmt.setLong(QueryField.UNIT_PRICE, productInfo.getUnitPrice());
-                stmt.setLong(QueryField.DISCOUNT, productInfo.getDiscount());            
+                stmt.setDouble(QueryField.UNIT_PRICE, productInfo.getUnitPrice());
+                stmt.setDouble(QueryField.DISCOUNT, productInfo.getDiscount());            
                 stmt.executeUpdate();
             }
         }
@@ -111,8 +111,8 @@ public class Purchase {
                 stmt.setString(QueryField.PURCHASE_ORDER_NO, purchaseInfo.getOrderNo());
                 stmt.setString(QueryField.SALE_ORDER_NO, null);
                 stmt.setInt(QueryField.PRODUCT_ID, productInfo.getId());
-                stmt.setLong(QueryField.STOCK_IN, productInfo.getQuantity());
-                stmt.setLong(QueryField.STOCK_OUT, 0);
+                stmt.setDouble(QueryField.STOCK_IN, productInfo.getQuantity());
+                stmt.setDouble(QueryField.STOCK_OUT, 0);
                 //right now transaction category id constant. later update it from config file
                 stmt.setInt(QueryField.TRANSACTION_CATEGORY_ID, 1);           
                 stmt.executeUpdate();

@@ -10,6 +10,9 @@ package com.inventory.db.query;
  * @author alamgir
  */
 public final class QueryManager {
+    public static final String GET_ALL_PRODUCT_CATEGORIES = "db.query.get-all-product-categories";
+    public static final String GET_ALL_PRODUCT_TYPES = "db.query.get-all-product-types";
+    public static final String GET_ALL_UOMS = "db.query.get-all-uoms";
     public static final String CREATE_PRODUCT = "db.query.create-product";
     public static final String GET_ALL_PRODUCTS = "db.query.get-all-products";
     public static final String CREATE_USER = "db.query.create-user";
@@ -28,4 +31,5 @@ public final class QueryManager {
     public static final String GET_ALL_CUSTOMERS = "db.query.get-all-customers";
     public static final String GET_ALL_PURCHASE_ORDERS = "db.query.get-all-purchase-orders";
     public static final String GET_ALL_SALE_ORDERS = "db.query.get-all-sale-orders";
+    public static final String GET_CURRENT_STOCKS = "db.query.get-current-stocks";
 }

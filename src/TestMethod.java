@@ -11,6 +11,7 @@ import com.inventory.db.Database;
 import com.inventory.db.ProductManager;
 import com.inventory.db.PurchaseManager;
 import com.inventory.db.SaleManager;
+import com.inventory.db.StockManager;
 import com.inventory.db.SupplierManager;
 import com.inventory.exceptions.DBSetupException;
 import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
@@ -31,10 +32,10 @@ import java.util.List;
 public class TestMethod {
     public static void main(String args[]) throws DBSetupException, SQLException
     {
-        int customerUserId = 7338697;
-        int supplierUserId = 9592519;
+        int customerUserId = 7830841;
+        int supplierUserId = 3373501;
         // ------------------------ Initializing the database --------------------------//
-        //Database.getInstance();
+//        Database.getInstance();
         // ------------------------ Adding products --------------------------//
 //        ProductInfo productInfo1 = new ProductInfo();
 //        productInfo1.setName("a1");
@@ -43,6 +44,8 @@ public class TestMethod {
 //        productInfo1.setWidth("d1");
 //        productInfo1.setHeight("e1");
 //        productInfo1.setWeight("f1");
+//        productInfo1.setUnitPrice(100);
+//        
 //        
 //        ProductManager productManager = new ProductManager();
 //        productManager.createProduct(productInfo1);
@@ -54,7 +57,9 @@ public class TestMethod {
 //        productInfo2.setWidth("d2");
 //        productInfo2.setHeight("e2");
 //        productInfo2.setWeight("f2");
-//        productManager.createProduct(productInfo2);
+//        productInfo2.setUnitPrice(200);
+//         productManager.createProduct(productInfo2);
+        
         // ------------------------ returning productl ist --------------------------//
 //        ProductManager productManager = new ProductManager();
 //        List<ProductInfo> productList = productManager.getAllProducts();
@@ -93,7 +98,7 @@ public class TestMethod {
 //          ProductInfo productInfo2 = new ProductInfo();
 //          productInfo2.setId(2);
 //          productInfo2.setUnitPrice(100);
-//          productInfo2.setQuantity(500);
+//          productInfo2.setQuantity(600);
 //          productInfo2.setDiscount(0);
 //          
 //          List<ProductInfo> productList = new ArrayList<>();
@@ -106,7 +111,7 @@ public class TestMethod {
 //          purchaseInfo.setOrderNo("order1");
 //          purchaseInfo.setStatusId(1);
 //          purchaseInfo.setRemarks("remarks1");
-//          purchaseInfo.setOrderDate(123);
+//          //purchaseInfo.setOrderDate();
 //          purchaseInfo.setRequestShippedDate(456);
 //          
 //          PurchaseManager purchaseManager = new PurchaseManager();
@@ -139,14 +144,14 @@ public class TestMethod {
 //          ProductInfo productInfo1 = new ProductInfo();
 //          productInfo1.setId(1);
 //          productInfo1.setUnitPrice(100);
-//          productInfo1.setQuantity(500);
+//          productInfo1.setQuantity(300);
 //          productInfo1.setDiscount(0);
 //          productInfo1.setPurchaseOrderNo("order1");
 //          
 //          ProductInfo productInfo2 = new ProductInfo();
 //          productInfo2.setId(2);
 //          productInfo2.setUnitPrice(100);
-//          productInfo2.setQuantity(500);
+//          productInfo2.setQuantity(400);
 //          productInfo2.setDiscount(0);
 //          productInfo2.setPurchaseOrderNo("order1");
 //          
@@ -177,5 +182,10 @@ public class TestMethod {
         // ------------------------ Returning Sale list --------------------------//
 //        SaleManager saleManager = new SaleManager();
 //        List<SaleInfo> saleList = saleManager.getAllSaleOrders();
+        // ------------------------ Returning Current stock --------------------------//
+        List<ProductInfo> productList = new ArrayList<>();
+        StockManager stockManager = new StockManager();
+        productList = stockManager.getCurrentStocks();
+        System.out.println("Test completed.");
     }
 }

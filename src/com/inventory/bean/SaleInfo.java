@@ -17,7 +17,7 @@ public class SaleInfo {
     private int customerUserId;
     private int statusId;
     private int saleDate;
-    private long discount;
+    private double discount;
     private String remarks;
     List<ProductInfo> productList;
     public SaleInfo()
@@ -57,11 +57,11 @@ public class SaleInfo {
         this.saleDate = saleDate;
     }
 
-    public long getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(long discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 

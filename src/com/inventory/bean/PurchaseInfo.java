@@ -19,7 +19,7 @@ public class PurchaseInfo {
     private int statusId;
     private String orderDate;
     private long requestShippedDate;
-    private long discount;
+    private double discount;
     private String remarks;
     private List<ProductInfo> productList;
     private SupplierInfo supplierInfo;
@@ -76,11 +76,11 @@ public class PurchaseInfo {
         this.requestShippedDate = requestShippedDate;
     }
 
-    public long getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(long discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 

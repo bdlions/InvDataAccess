@@ -10,6 +10,7 @@ package com.inventory.db.query;
  * @author alamgir
  */
 public class QueryField {
+    public static final String TITLE = "title";
     public static final String NAME = "name";
     public static final String CODE = "code";
     public static final String LENGTH = "length";
@@ -46,4 +47,12 @@ public class QueryField {
     public static final String PURCHASE_ORDER_NO = "purchase_order_no";
     public static final String CUSTOMER_USER_ID = "customer_user_id";
     public static final String SALE_DATE = "sale_date";
+    public static final String CATEGORY_ID = "category_id";
+    public static final String PRODUCT_CATEGORY = "product_category";
+    public static final String TYPE_ID = "type_id";
+    public static final String PRODUCT_TYPE = "product_type";
+    public static final String STANDARD_UOM_ID = "standard_uom_id";
+    public static final String SALE_UOM_ID = "sale_uom_id";
+    public static final String PURCHASE_UOM_ID = "purchase_uom_id";
+    public static final String CURRENT_STOCK = "current_stock";
 }
