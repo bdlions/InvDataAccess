@@ -20,6 +20,7 @@ public class SaleInfo {
     private double discount;
     private String remarks;
     List<ProductInfo> productList;
+    CustomerInfo customerInfo;
     public SaleInfo()
     {
         productList = new ArrayList<>();
@@ -79,6 +80,14 @@ public class SaleInfo {
 
     public void setProductList(List<ProductInfo> productList) {
         this.productList = productList;
+    }
+
+    public CustomerInfo getCustomerInfo() {
+        return customerInfo;
+    }
+
+    public void setCustomerInfo(CustomerInfo customerInfo) {
+        this.customerInfo = customerInfo;
     }
     
 }

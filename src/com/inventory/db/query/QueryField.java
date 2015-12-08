@@ -27,6 +27,7 @@ public class QueryField {
     public static final String USER_ID = "user_id";
     public static final String GROUP_ID = "group_id";
     public static final String ADDRESS_TYPE_ID = "address_type_id";
+    public static final String ADDRESS_CATEGORY_ID = "address_category_id";
     public static final String ADDRESS = "address";
     public static final String CITY = "city";
     public static final String STATE = "state";

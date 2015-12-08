@@ -5,9 +5,10 @@
  */
 package com.inventory.db.repositories;
 
+import com.inventory.bean.CustomerInfo;
 import com.inventory.bean.ProductInfo;
-import com.inventory.bean.PurchaseInfo;
 import com.inventory.bean.SaleInfo;
+import com.inventory.bean.UserInfo;
 import com.inventory.db.query.QueryField;
 import com.inventory.db.query.QueryManager;
 import com.inventory.db.query.helper.EasyStatement;
@@ -94,6 +95,10 @@ public class Sale {
                 saleInfo.setOrderNo(rs.getString(QueryField.ORDER_NO));
                 saleInfo.setSaleDate(rs.getInt(QueryField.SALE_DATE));
                 saleInfo.setRemarks(rs.getString(QueryField.REMARKS));
+                CustomerInfo customerInfo = new CustomerInfo();
+                customerInfo.getUserInfo().setFirstName(rs.getString(QueryField.FIRST_NAME));
+                customerInfo.getUserInfo().setLastName(rs.getString(QueryField.LAST_NAME));
+                saleInfo.setCustomerInfo(customerInfo);
                 saleList.add(saleInfo);
             }
         }

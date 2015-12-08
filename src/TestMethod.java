@@ -1,14 +1,20 @@
 
+import com.inventory.bean.AddressCategoryInfo;
 import com.inventory.bean.AddressInfo;
+import com.inventory.bean.AddressTypeInfo;
 import com.inventory.bean.CustomerInfo;
+import com.inventory.bean.ProductCategoryInfo;
 import com.inventory.bean.ProductInfo;
+import com.inventory.bean.ProductTypeInfo;
 import com.inventory.bean.PurchaseInfo;
 import com.inventory.bean.SaleInfo;
 import com.inventory.bean.SupplierInfo;
+import com.inventory.bean.UOMInfo;
 import com.inventory.bean.UserInfo;
 import com.inventory.db.CustomerManager;
 import com.inventory.db.Database;
 import com.inventory.db.ProductManager;
+import com.inventory.db.ProfileManager;
 import com.inventory.db.PurchaseManager;
 import com.inventory.db.SaleManager;
 import com.inventory.db.StockManager;
@@ -32,8 +38,8 @@ import java.util.List;
 public class TestMethod {
     public static void main(String args[]) throws DBSetupException, SQLException
     {
-        int customerUserId = 7830841;
-        int supplierUserId = 3373501;
+        int customerUserId = 4791845;
+        int supplierUserId = 9061303;
         // ------------------------ Initializing the database --------------------------//
 //        Database.getInstance();
         // ------------------------ Adding products --------------------------//
@@ -60,9 +66,19 @@ public class TestMethod {
 //        productInfo2.setUnitPrice(200);
 //         productManager.createProduct(productInfo2);
         
-        // ------------------------ returning productl ist --------------------------//
+        // ----- returning product category, type and uom list --------------------//
 //        ProductManager productManager = new ProductManager();
-//        List<ProductInfo> productList = productManager.getAllProducts();
+//        List<ProductCategoryInfo> productCategoryList = productManager.getAllProductCategories();        
+//        List<ProductTypeInfo> productTypeList = productManager.getAllProductTypes();        
+//        List<UOMInfo> uomList = productManager.getAllUOMs();
+        
+        // ------------------------ returning productl ist --------------------------//
+        ProductManager productManager = new ProductManager();
+        List<ProductInfo> productList = productManager.getAllProducts();
+        // ------------------------  Address Types and Categories ----------------------//
+//        ProfileManager profileManager = new ProfileManager();
+//        List<AddressTypeInfo> addressTypeList = profileManager.getAllAddressTypes();
+//        List<AddressCategoryInfo> addressCategoryList = profileManager.getAllAddressCategories();
           // ------------------------ Adding a new Supplier --------------------------//
 //         UserInfo userInfo = new UserInfo();
 //          userInfo.setFirstName("fn2");
@@ -73,6 +89,8 @@ public class TestMethod {
 //          userInfo.setWebsite("website2");
 //          
 //          AddressInfo addressInfo = new AddressInfo();
+//          addressInfo.getAddressTypeInfo().setId(1);
+//          addressInfo.getAddressCategoryInfo().setId(1);
 //          addressInfo.setAddress("niketon");
 //          addressInfo.setCity("dhaka");
 //          addressInfo.setState("dhaka");
@@ -126,6 +144,8 @@ public class TestMethod {
 //          userInfo.setWebsite("website5");
 //          
 //          AddressInfo addressInfo = new AddressInfo();
+//          addressInfo.getAddressTypeInfo().setId(1);
+//          addressInfo.getAddressCategoryInfo().setId(1);
 //          addressInfo.setAddress("niketon");
 //          addressInfo.setCity("dhaka");
 //          addressInfo.setState("dhaka");
