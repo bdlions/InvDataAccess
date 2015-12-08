@@ -18,12 +18,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author nazmul hasan
  */
 public class Purchase {
+    private final Logger logger = LoggerFactory.getLogger(Purchase.class);
     private Utils utils = new Utils();
     private Connection connection;
     /***
@@ -36,14 +39,19 @@ public class Purchase {
     public void addPurchaseOrder(PurchaseInfo purchaseInfo) throws DBSetupException, SQLException
     {
         try (EasyStatement stmt = new EasyStatement(connection, QueryManager.ADD_PURCHASE_ORDER)) {
-            stmt.setString(QueryField.ORDER_NO, purchaseInfo.getOrderNo());
-            stmt.setInt(QueryField.SUPPLIER_USER_ID, purchaseInfo.getSupplierUserId());
-            stmt.setInt(QueryField.STATUS_ID, purchaseInfo.getStatusId());
-            stmt.setLong(QueryField.ORDER_DATE, utils.getCurrentUnixTime());
-            stmt.setLong(QueryField.REQUESTED_SHIP_DATE, purchaseInfo.getRequestShippedDate());
-            stmt.setDouble(QueryField.DISCOUNT, purchaseInfo.getDiscount());
-            stmt.setString(QueryField.REMARKS, purchaseInfo.getRemarks());
-            stmt.executeUpdate();
+            try{
+                stmt.setString(QueryField.ORDER_NO, purchaseInfo.getOrderNo());
+                stmt.setInt(QueryField.SUPPLIER_USER_ID, purchaseInfo.getSupplierUserId());
+                stmt.setInt(QueryField.STATUS_ID, purchaseInfo.getStatusId());
+                stmt.setLong(QueryField.ORDER_DATE, utils.getCurrentUnixTime());
+                stmt.setLong(QueryField.REQUESTED_SHIP_DATE, purchaseInfo.getRequestShippedDate());
+                stmt.setDouble(QueryField.DISCOUNT, purchaseInfo.getDiscount());
+                stmt.setString(QueryField.REMARKS, purchaseInfo.getRemarks());
+                stmt.executeUpdate();
+            }
+            catch(Exception ex){
+                logger.debug(ex.getMessage());
+            }
         }
         this.addWarehousePurchasedProductList(purchaseInfo);
         this.addWarehouseStock(purchaseInfo);
