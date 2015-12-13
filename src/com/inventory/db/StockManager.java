@@ -5,12 +5,7 @@
  */
 package com.inventory.db;
 
-import com.inventory.bean.CustomerInfo;
 import com.inventory.bean.ProductInfo;
-import com.inventory.bean.SupplierInfo;
-import com.inventory.db.query.helper.EasyStatement;
-import com.inventory.db.repositories.Customer;
-import com.inventory.db.repositories.Supplier;
 import com.inventory.db.repositories.Stock;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;

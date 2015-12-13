@@ -115,6 +115,7 @@ public class Database {
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.users"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.users_groups"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.address_types"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.table.address_categories"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.users_addressess"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.suppliers"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.table.customers"));
@@ -132,6 +133,8 @@ public class Database {
             
             //create relations
             statement.executeUpdate(DbSetupQueryProvider.get("db.rel.products"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.rel.users_groups"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.rel.users_addressess"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.rel.suppliers"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.rel.customers"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.rel.purchase_orders"));
@@ -148,7 +151,9 @@ public class Database {
             statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.uoms"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.groups"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.users"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.users_groups"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.address_types"));
+            statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.address_categories"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.purchase_order_statuses"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.ws_transaction_categories"));
             statement.executeUpdate(DbSetupQueryProvider.get("db.defaultData.sale_order_statuses"));

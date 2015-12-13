@@ -10,23 +10,16 @@ package com.inventory.bean;
  * @author nazmul hasan
  */
 public class AddressInfo {
-    private int userId;
-    private int addressTypeId;
     private String address;
     private String city;
     private String state;
     private String zip;
+    private AddressTypeInfo addressTypeInfo;
+    private AddressCategoryInfo addressCategoryInfo;
     public AddressInfo()
     {
-    
-    }
-
-    public int getAddressTypeId() {
-        return addressTypeId;
-    }
-
-    public void setAddressTypeId(int addressTypeId) {
-        this.addressTypeId = addressTypeId;
+        addressTypeInfo = new AddressTypeInfo();
+        addressCategoryInfo = new AddressCategoryInfo();
     }
 
     public String getAddress() {
@@ -61,12 +54,20 @@ public class AddressInfo {
         this.zip = zip;
     }
 
-    public int getUserId() {
-        return userId;
+    public AddressTypeInfo getAddressTypeInfo() {
+        return addressTypeInfo;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setAddressTypeInfo(AddressTypeInfo addressTypeInfo) {
+        this.addressTypeInfo = addressTypeInfo;
+    }
+
+    public AddressCategoryInfo getAddressCategoryInfo() {
+        return addressCategoryInfo;
+    }
+
+    public void setAddressCategoryInfo(AddressCategoryInfo addressCategoryInfo) {
+        this.addressCategoryInfo = addressCategoryInfo;
     }
     
 }
