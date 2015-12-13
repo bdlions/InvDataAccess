@@ -120,6 +120,7 @@ public class Product {
                 productInfo.setWidth(rs.getString(QueryField.WIDTH));
                 productInfo.setHeight(rs.getString(QueryField.HEIGHT));
                 productInfo.setWeight(rs.getString(QueryField.WEIGHT));
+                productInfo.setUnitPrice(rs.getDouble(QueryField.UNIT_PRICE));
                 productList.add(productInfo);
             }
         }
