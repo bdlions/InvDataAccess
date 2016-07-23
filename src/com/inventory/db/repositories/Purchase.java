@@ -8,11 +8,11 @@ package com.inventory.db.repositories;
 import com.inventory.bean.ProductInfo;
 import com.inventory.bean.PurchaseInfo;
 import com.inventory.bean.SupplierInfo;
-import com.inventory.db.query.QueryField;
-import com.inventory.db.query.QueryManager;
+import com.inventory.db.query.helper.QueryField;
+import com.inventory.db.query.helper.QueryManager;
 import com.inventory.db.query.helper.EasyStatement;
 import com.inventory.exceptions.DBSetupException;
-import com.inventory.utility.Utils;
+import com.inventory.util.Utils;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -140,8 +140,8 @@ public class Purchase {
                 purchaseInfo.setOrderDate(utils.convertUnixToHuman(rs.getLong(QueryField.ORDER_DATE)));
                 purchaseInfo.setRemarks(rs.getString(QueryField.REMARKS));
                 SupplierInfo supplierInfo = new SupplierInfo();
-                supplierInfo.getUserInfo().setFirstName(rs.getString(QueryField.FIRST_NAME));
-                supplierInfo.getUserInfo().setLastName(rs.getString(QueryField.LAST_NAME));
+                supplierInfo.getProfileInfo().setFirstName(rs.getString(QueryField.FIRST_NAME));
+                supplierInfo.getProfileInfo().setLastName(rs.getString(QueryField.LAST_NAME));
                 purchaseInfo.setSupplierInfo(supplierInfo);
                 purchaseList.add(purchaseInfo);
             }

@@ -7,8 +7,8 @@ package com.inventory.db.repositories;
 
 import com.inventory.bean.ProductInfo;
 import com.inventory.bean.SaleInfo;
-import com.inventory.db.query.QueryField;
-import com.inventory.db.query.QueryManager;
+import com.inventory.db.query.helper.QueryField;
+import com.inventory.db.query.helper.QueryManager;
 import com.inventory.db.query.helper.EasyStatement;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;

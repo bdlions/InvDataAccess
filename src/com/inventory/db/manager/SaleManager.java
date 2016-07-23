@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.inventory.db;
+package com.inventory.db.manager;
 
-import com.inventory.bean.SupplierInfo;
+import com.inventory.bean.PurchaseInfo;
+import com.inventory.bean.SaleInfo;
+import com.inventory.db.Database;
 import com.inventory.db.query.helper.EasyStatement;
-import com.inventory.db.repositories.User;
-import com.inventory.db.repositories.Supplier;
+import com.inventory.db.repositories.Purchase;
+import com.inventory.db.repositories.Sale;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -21,31 +23,19 @@ import org.slf4j.LoggerFactory;
  *
  * @author nazmul hasan
  */
-public class SupplierManager {
-    private User user;
-    private Supplier supplier;
+public class SaleManager {
+    private Sale sale;
     private final Logger logger = LoggerFactory.getLogger(EasyStatement.class);
-    /**
-     * This method will create a new supplier
-     * @param supplierInfo, 
-     */
-    public void createSupplier(SupplierInfo supplierInfo)
+    public void addSaleOrder(SaleInfo saleInfo)
     {
-        //create a new user
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
             connection.setAutoCommit(false);
             
-            //right now group id constant. Later update it from configuraiton file
-            supplierInfo.getUserInfo().setGroupId(1);
-            user = new User(connection);
-            int userId = user.createUser(supplierInfo.getUserInfo()); 
+            sale = new Sale(connection);
+            sale.addSaleOrder(saleInfo);
             
-            supplierInfo.getUserInfo().setId(userId);
-            supplier = new Supplier(connection);
-            supplier.createSupplier(supplierInfo);
-
             connection.commit();
             connection.close();
         } catch (SQLException ex) {
@@ -60,25 +50,18 @@ public class SupplierManager {
         } catch (DBSetupException ex) {
             logger.error(ex.getMessage());
         }
-        //add user under a group
-        //add address
-        //add supplier info
     }
     
-    /**
-     * This method will return all suppliers
-     * @return list, supplier list
-     */
-    public List<SupplierInfo> getAllSuppliers()
+    public List<SaleInfo> getAllSaleOrders()
     {
-        List<SupplierInfo> supplierList = new ArrayList<>(); 
+        List<SaleInfo> saleList = new ArrayList<>();
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
             
-            supplier = new Supplier(connection);
-            supplierList = supplier.getAllSuppliers();
-
+            sale = new Sale(connection);
+            saleList = sale.getAllSaleOrders();
+            
             connection.close();
         } catch (SQLException ex) {
             try {
@@ -91,8 +74,6 @@ public class SupplierManager {
         } catch (DBSetupException ex) {
             logger.error(ex.getMessage());
         }
-        return supplierList;
+        return saleList;
     }
-    
-    
 }

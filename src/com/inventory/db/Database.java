@@ -14,8 +14,8 @@ import java.text.MessageFormat;
 import com.inventory.exceptions.DBSetupException;
 import com.inventory.exceptions.DBUserNameException;
 import com.inventory.exceptions.DatabaseNameException;
-import com.inventory.utility.DbPropertyProvider;
-import com.inventory.utility.DbSetupQueryProvider;
+import com.inventory.util.DbPropertyProvider;
+import com.inventory.util.DbSetupQueryProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author nazmul hasan
  */
-public class UserInfo {
+public class ProfileInfo {
     private int id;
     private String firstName;
     private String lastName;
@@ -22,7 +22,7 @@ public class UserInfo {
     private String website;
     private List<AddressInfo> addresses;
     private int groupId;
-    public UserInfo()
+    public ProfileInfo()
     {
         addresses = new ArrayList<>();
     }

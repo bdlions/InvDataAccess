@@ -8,9 +8,9 @@ package com.inventory.db.repositories;
 import com.inventory.bean.CustomerInfo;
 import com.inventory.bean.ProductInfo;
 import com.inventory.bean.SaleInfo;
-import com.inventory.bean.UserInfo;
-import com.inventory.db.query.QueryField;
-import com.inventory.db.query.QueryManager;
+import com.inventory.bean.ProfileInfo;
+import com.inventory.db.query.helper.QueryField;
+import com.inventory.db.query.helper.QueryManager;
 import com.inventory.db.query.helper.EasyStatement;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;
@@ -96,8 +96,8 @@ public class Sale {
                 saleInfo.setSaleDate(rs.getInt(QueryField.SALE_DATE));
                 saleInfo.setRemarks(rs.getString(QueryField.REMARKS));
                 CustomerInfo customerInfo = new CustomerInfo();
-                customerInfo.getUserInfo().setFirstName(rs.getString(QueryField.FIRST_NAME));
-                customerInfo.getUserInfo().setLastName(rs.getString(QueryField.LAST_NAME));
+                customerInfo.getProfileInfo().setFirstName(rs.getString(QueryField.FIRST_NAME));
+                customerInfo.getProfileInfo().setLastName(rs.getString(QueryField.LAST_NAME));
                 saleInfo.setCustomerInfo(customerInfo);
                 saleList.add(saleInfo);
             }

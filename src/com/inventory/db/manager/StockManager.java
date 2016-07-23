@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.inventory.db;
+package com.inventory.db.manager;
 
 import com.inventory.bean.ProductInfo;
+import com.inventory.db.Database;
 import com.inventory.db.repositories.Stock;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;

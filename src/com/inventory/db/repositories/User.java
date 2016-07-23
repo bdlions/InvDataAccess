@@ -8,9 +8,9 @@ package com.inventory.db.repositories;
 import com.inventory.bean.AddressCategoryInfo;
 import com.inventory.bean.AddressInfo;
 import com.inventory.bean.AddressTypeInfo;
-import com.inventory.bean.UserInfo;
-import com.inventory.db.query.QueryField;
-import com.inventory.db.query.QueryManager;
+import com.inventory.bean.ProfileInfo;
+import com.inventory.db.query.helper.QueryField;
+import com.inventory.db.query.helper.QueryManager;
 import com.inventory.db.query.helper.EasyStatement;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;
@@ -34,7 +34,7 @@ public class User {
         this.connection = connection;
     }
     
-    public int createUser(UserInfo userInfo) throws DBSetupException, SQLException
+    public int createUser(ProfileInfo userInfo) throws DBSetupException, SQLException
     {
         //right now random int is used. later get last inserted id
         Random random = new Random();
@@ -55,7 +55,7 @@ public class User {
         return userId;
     }
     
-    public void addUserToGroup(UserInfo userInfo) throws DBSetupException, SQLException
+    public void addUserToGroup(ProfileInfo userInfo) throws DBSetupException, SQLException
     {
         try (EasyStatement stmt = new EasyStatement(connection, QueryManager.ADD_USER_TO_GROUP)) {
             stmt.setInt(QueryField.USER_ID, userInfo.getId());
@@ -65,7 +65,7 @@ public class User {
         this.addUserAddresses(userInfo);
     }
     
-    public void addUserAddresses(UserInfo userInfo) throws DBSetupException, SQLException
+    public void addUserAddresses(ProfileInfo userInfo) throws DBSetupException, SQLException
     {
         //right now we are using loop. later use insert batch
         List<AddressInfo> addresses = userInfo.getAddresses();

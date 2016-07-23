@@ -6,9 +6,10 @@
 package com.inventory.db.repositories;
 
 import com.inventory.bean.CustomerInfo;
-import com.inventory.bean.UserInfo;
-import com.inventory.db.query.QueryField;
-import com.inventory.db.query.QueryManager;
+import com.inventory.bean.ProfileInfo;
+import com.inventory.db.manager.ProductManager;
+import com.inventory.db.query.helper.QueryField;
+import com.inventory.db.query.helper.QueryManager;
 import com.inventory.db.query.helper.EasyStatement;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;
@@ -33,7 +34,7 @@ public class Customer {
     public void createCustomer(CustomerInfo customerInfo) throws DBSetupException, SQLException
     {
         try (EasyStatement stmt = new EasyStatement(connection, QueryManager.CREATE_CUSTOMER)) {
-            stmt.setInt(QueryField.USER_ID, customerInfo.getUserInfo().getId());
+            stmt.setInt(QueryField.USER_ID, customerInfo.getProfileInfo().getId());
             stmt.executeUpdate();
         }
     }
@@ -47,7 +48,7 @@ public class Customer {
             while(rs.next())
             {
                 CustomerInfo customerInfo = new CustomerInfo();
-                UserInfo userInfo = new UserInfo();
+                ProfileInfo userInfo = new ProfileInfo();
                 userInfo.setId(rs.getInt(QueryField.USER_ID));
                 userInfo.setFirstName(rs.getString(QueryField.FIRST_NAME));
                 userInfo.setLastName(rs.getString(QueryField.LAST_NAME));
@@ -55,7 +56,7 @@ public class Customer {
                 userInfo.setPhone(rs.getString(QueryField.PHONE));
                 userInfo.setFax(rs.getString(QueryField.FAX));
                 userInfo.setWebsite(rs.getString(QueryField.WEBSITE));
-                customerInfo.setUserInfo(userInfo);
+                customerInfo.setProfileInfo(userInfo);
                 customerList.add(customerInfo);
             }
         }

@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.inventory.db;
-
-import com.inventory.bean.CustomerInfo;
-import com.inventory.bean.SupplierInfo;
+package com.inventory.db.manager;
+import com.inventory.bean.PurchaseInfo;
+import com.inventory.db.Database;
 import com.inventory.db.query.helper.EasyStatement;
-import com.inventory.db.repositories.Customer;
-import com.inventory.db.repositories.Supplier;
-import com.inventory.db.repositories.User;
+import com.inventory.db.repositories.Product;
+import com.inventory.db.repositories.Purchase;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -18,33 +16,23 @@ import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 /**
  *
  * @author nazmul hasan
  */
-public class CustomerManager {
-    private User user;
-    private Customer customer;
+public class PurchaseManager {
+    private Purchase purchase;
     private final Logger logger = LoggerFactory.getLogger(EasyStatement.class);
-    public void createCustomer(CustomerInfo customerInfo)
+    public void addPurchaseOrder(PurchaseInfo purchaseInfo)
     {
-        //create a new user
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
             connection.setAutoCommit(false);
             
-            //right now group id constant. Later update it from configuraiton file
-            customerInfo.getUserInfo().setGroupId(2);
+            purchase = new Purchase(connection);
+            purchase.addPurchaseOrder(purchaseInfo);
             
-            user = new User(connection);
-            int userId = user.createUser(customerInfo.getUserInfo()); 
-            
-            customerInfo.getUserInfo().setId(userId);
-            customer = new Customer(connection);
-            customer.createCustomer(customerInfo);
-
             connection.commit();
             connection.close();
         } catch (SQLException ex) {
@@ -58,23 +46,19 @@ public class CustomerManager {
             }
         } catch (DBSetupException ex) {
             logger.error(ex.getMessage());
-        }
+        }        
     }
     
-    /**
-     * This method will return all customers
-     * @return list, customer list
-     */
-    public List<CustomerInfo> getAllCustomers()
+    public List<PurchaseInfo> getAllPurchaseOrders()
     {
-        List<CustomerInfo> customerList = new ArrayList<>(); 
+        List<PurchaseInfo> purchaseList = new ArrayList<>();
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
             
-            customer = new Customer(connection);
-            customerList = customer.getAllCustomers();
-
+            purchase = new Purchase(connection);
+            purchaseList = purchase.getAllPurchaseOrders();
+            
             connection.close();
         } catch (SQLException ex) {
             try {
@@ -86,7 +70,7 @@ public class CustomerManager {
             }
         } catch (DBSetupException ex) {
             logger.error(ex.getMessage());
-        }
-        return customerList;
+        }   
+        return purchaseList;
     }
 }

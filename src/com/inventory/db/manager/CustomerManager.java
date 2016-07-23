@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.inventory.db;
+package com.inventory.db.manager;
 
-import com.inventory.bean.PurchaseInfo;
-import com.inventory.bean.SaleInfo;
+import com.inventory.bean.CustomerInfo;
+import com.inventory.bean.SupplierInfo;
+import com.inventory.db.Database;
 import com.inventory.db.query.helper.EasyStatement;
-import com.inventory.db.repositories.Purchase;
-import com.inventory.db.repositories.Sale;
+import com.inventory.db.repositories.Customer;
+import com.inventory.db.repositories.Supplier;
+import com.inventory.db.repositories.User;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -22,19 +24,28 @@ import org.slf4j.LoggerFactory;
  *
  * @author nazmul hasan
  */
-public class SaleManager {
-    private Sale sale;
+public class CustomerManager {
+    private User user;
+    private Customer customer;
     private final Logger logger = LoggerFactory.getLogger(EasyStatement.class);
-    public void addSaleOrder(SaleInfo saleInfo)
+    public void createCustomer(CustomerInfo customerInfo)
     {
+        //create a new user
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
             connection.setAutoCommit(false);
             
-            sale = new Sale(connection);
-            sale.addSaleOrder(saleInfo);
+            //right now group id constant. Later update it from configuraiton file
+            customerInfo.getProfileInfo().setGroupId(2);
             
+            user = new User(connection);
+            int userId = user.createUser(customerInfo.getProfileInfo()); 
+            
+            customerInfo.getProfileInfo().setId(userId);
+            customer = new Customer(connection);
+            customer.createCustomer(customerInfo);
+
             connection.commit();
             connection.close();
         } catch (SQLException ex) {
@@ -51,16 +62,20 @@ public class SaleManager {
         }
     }
     
-    public List<SaleInfo> getAllSaleOrders()
+    /**
+     * This method will return all customers
+     * @return list, customer list
+     */
+    public List<CustomerInfo> getAllCustomers()
     {
-        List<SaleInfo> saleList = new ArrayList<>();
+        List<CustomerInfo> customerList = new ArrayList<>(); 
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
             
-            sale = new Sale(connection);
-            saleList = sale.getAllSaleOrders();
-            
+            customer = new Customer(connection);
+            customerList = customer.getAllCustomers();
+
             connection.close();
         } catch (SQLException ex) {
             try {
@@ -73,6 +88,6 @@ public class SaleManager {
         } catch (DBSetupException ex) {
             logger.error(ex.getMessage());
         }
-        return saleList;
+        return customerList;
     }
 }

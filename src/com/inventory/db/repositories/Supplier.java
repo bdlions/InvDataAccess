@@ -6,9 +6,9 @@
 package com.inventory.db.repositories;
 
 import com.inventory.bean.SupplierInfo;
-import com.inventory.bean.UserInfo;
-import com.inventory.db.query.QueryField;
-import com.inventory.db.query.QueryManager;
+import com.inventory.bean.ProfileInfo;
+import com.inventory.db.query.helper.QueryField;
+import com.inventory.db.query.helper.QueryManager;
 import com.inventory.db.query.helper.EasyStatement;
 import com.inventory.exceptions.DBSetupException;
 import java.sql.Connection;
@@ -34,7 +34,7 @@ public class Supplier {
     public void createSupplier(SupplierInfo supplierInfo) throws DBSetupException, SQLException
     {
         try (EasyStatement stmt = new EasyStatement(connection, QueryManager.CREATE_SUPPLIER)) {
-            stmt.setInt(QueryField.USER_ID, supplierInfo.getUserInfo().getId());
+            stmt.setInt(QueryField.USER_ID, supplierInfo.getProfileInfo().getId());
             stmt.setString(QueryField.REMARKS, supplierInfo.getRemarks());
             stmt.executeUpdate();
         }
@@ -50,7 +50,7 @@ public class Supplier {
             {
                 SupplierInfo supplierInfo = new SupplierInfo();
                 supplierInfo.setRemarks(rs.getString(QueryField.REMARKS));
-                UserInfo userInfo = new UserInfo();
+                ProfileInfo userInfo = new ProfileInfo();
                 userInfo.setId(rs.getInt(QueryField.USER_ID));
                 userInfo.setFirstName(rs.getString(QueryField.FIRST_NAME));
                 userInfo.setLastName(rs.getString(QueryField.LAST_NAME));
@@ -58,7 +58,7 @@ public class Supplier {
                 userInfo.setPhone(rs.getString(QueryField.PHONE));
                 userInfo.setFax(rs.getString(QueryField.FAX));
                 userInfo.setWebsite(rs.getString(QueryField.WEBSITE));
-                supplierInfo.setUserInfo(userInfo);
+                supplierInfo.setProfileInfo(userInfo);
                 supplierList.add(supplierInfo);
             }
         }

@@ -13,19 +13,23 @@ public class ProductInfo {
     private int id;
     private String name;
     private String code;
+    
     private String length;
     private String width;
     private String height;
     private String weight;
+    
     private double quantity;
     private double unitPrice;
     private double discount;
     private String purchaseOrderNo;
+    
     private ProductCategoryInfo productCategoryInfo;
     private ProductTypeInfo productTypeInfo;
     private UOMInfo standardUOM;
     private UOMInfo saleUOM;
     private UOMInfo purchasingUOM;
+    
     public ProductInfo()
     {
         productCategoryInfo = new ProductCategoryInfo();

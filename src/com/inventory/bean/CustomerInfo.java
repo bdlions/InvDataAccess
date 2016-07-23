@@ -10,17 +10,17 @@ package com.inventory.bean;
  * @author nazmul hasan
  */
 public class CustomerInfo {
-    private UserInfo userInfo;
+    private ProfileInfo userInfo;
     public CustomerInfo()
     {
-        userInfo = new UserInfo();
+        userInfo = new ProfileInfo();
     }
 
-    public UserInfo getUserInfo() {
+    public ProfileInfo getProfileInfo() {
         return userInfo;
     }
 
-    public void setUserInfo(UserInfo userInfo) {
+    public void setProfileInfo(ProfileInfo userInfo) {
         this.userInfo = userInfo;
     }
     

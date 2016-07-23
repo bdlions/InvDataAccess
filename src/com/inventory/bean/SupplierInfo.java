@@ -10,19 +10,19 @@ package com.inventory.bean;
  * @author nazmul hasan
  */
 public class SupplierInfo {
-    private UserInfo userInfo;
+    private ProfileInfo profileInfo;
     private String remarks;
     public SupplierInfo()
     {
-        userInfo = new UserInfo();
+        profileInfo = new ProfileInfo();
     }
 
-    public UserInfo getUserInfo() {
-        return userInfo;
+    public ProfileInfo getProfileInfo() {
+        return profileInfo;
     }
 
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
+    public void setProfileInfo(ProfileInfo userInfo) {
+        this.profileInfo = userInfo;
     }
 
     public String getRemarks() {
