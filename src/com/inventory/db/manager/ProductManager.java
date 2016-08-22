@@ -24,30 +24,29 @@ import org.slf4j.LoggerFactory;
  * @author nazmul hasan
  */
 public class ProductManager {
+
     private Product product;
     private final Logger logger = LoggerFactory.getLogger(ProductManager.class);
-    
-    
+
     /**
      * This method will create a product
+     *
      * @param productInfo, product info
      * @author nazmul hasan
      */
-    public void createProduct(ProductInfo productInfo)
-    {
+    public void createProduct(ProductInfo productInfo) {
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
-            
+
             product = new Product(connection);
             product.createProduct(productInfo);
-            
 
             connection.close();
         } catch (SQLException ex) {
             logger.error(ex.getMessage());
             try {
-                if(connection != null){
+                if (connection != null) {
                     connection.close();
                 }
             } catch (SQLException ex1) {
@@ -57,18 +56,19 @@ public class ProductManager {
             logger.error(ex.getMessage());
         }
     }
+
     /**
      * This method will return all products
+     *
      * @return List, product list
      * @author nazmul hasan
      */
-    public List<ProductInfo> getAllProducts()
-    {
-        List<ProductInfo> productList = new ArrayList<>(); 
+    public List<ProductInfo> getAllProducts() {
+        List<ProductInfo> productList = new ArrayList<>();
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
-            
+
             product = new Product(connection);
             productList = product.getAllProducts();
 
@@ -76,7 +76,7 @@ public class ProductManager {
         } catch (SQLException ex) {
             logger.error(ex.getMessage());
             try {
-                if(connection != null){
+                if (connection != null) {
                     connection.close();
                 }
             } catch (SQLException ex1) {
@@ -87,19 +87,19 @@ public class ProductManager {
         }
         return productList;
     }
-    
+
     /**
      * This method will return all product categories
+     *
      * @return List, product category list
      * @author nazmul hasan
      */
-    public List<ProductCategoryInfo> getAllProductCategories()
-    {
+    public List<ProductCategoryInfo> getAllProductCategories() {
         List<ProductCategoryInfo> productCategoryList = new ArrayList<>();
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
-            
+
             product = new Product(connection);
             productCategoryList = product.getAllProductCategories();
 
@@ -107,7 +107,7 @@ public class ProductManager {
         } catch (SQLException ex) {
             logger.error(ex.getMessage());
             try {
-                if(connection != null){
+                if (connection != null) {
                     connection.close();
                 }
             } catch (SQLException ex1) {
@@ -118,18 +118,19 @@ public class ProductManager {
         }
         return productCategoryList;
     }
+
     /**
      * This method will return all product types
+     *
      * @return List, product type list
      * @author nazmul hasan
      */
-    public List<ProductTypeInfo> getAllProductTypes()
-    {
+    public List<ProductTypeInfo> getAllProductTypes() {
         List<ProductTypeInfo> productTypeList = new ArrayList<>();
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
-            
+
             product = new Product(connection);
             productTypeList = product.getAllProductTypes();
 
@@ -137,7 +138,7 @@ public class ProductManager {
         } catch (SQLException ex) {
             logger.error(ex.getMessage());
             try {
-                if(connection != null){
+                if (connection != null) {
                     connection.close();
                 }
             } catch (SQLException ex1) {
@@ -148,18 +149,19 @@ public class ProductManager {
         }
         return productTypeList;
     }
+
     /**
      * This method will return all unit of measurements
+     *
      * @return List, unit of measurement list
      * @author nazmul hasan
      */
-    public List<UOMInfo> getAllUOMs()
-    {
+    public List<UOMInfo> getAllUOMs() {
         List<UOMInfo> uomList = new ArrayList<>();
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
-            
+
             product = new Product(connection);
             uomList = product.getAllUOMs();
 
@@ -167,7 +169,7 @@ public class ProductManager {
         } catch (SQLException ex) {
             logger.error(ex.getMessage());
             try {
-                if(connection != null){
+                if (connection != null) {
                     connection.close();
                 }
             } catch (SQLException ex1) {
@@ -178,4 +180,75 @@ public class ProductManager {
         }
         return uomList;
     }
+
+    public List<ProductInfo> getProductsInfo(ProductInfo pInfo) {
+        Connection connection = null;
+        List<ProductInfo> productList = new ArrayList<>();
+        try {
+            connection = Database.getInstance().getConnection();
+
+            product = new Product(connection);
+            productList = product.getProductsInfo(pInfo);
+            connection.close();
+        } catch (SQLException ex) {
+            logger.error(ex.getMessage());
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+        return productList;
+    }
+      public ProductInfo getProductInfo(int productId) {
+        Connection connection = null;
+        ProductInfo productInfo = new ProductInfo();
+        try {
+            connection = Database.getInstance().getConnection();
+
+            product = new Product(connection);
+            productInfo = product.getProductInfo(productId);
+            connection.close();
+        } catch (SQLException ex) {
+            logger.error(ex.getMessage());
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+        return productInfo;
+    }
+        public void updateProduct(ProductInfo productInfo) {
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+
+            product = new Product(connection);
+            product.updateProduct(productInfo);
+
+            connection.close();
+        } catch (SQLException ex) {
+            logger.error(ex.getMessage());
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+    }
+  
+      
 }

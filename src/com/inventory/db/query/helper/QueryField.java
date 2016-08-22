@@ -56,4 +56,6 @@ public class QueryField {
     public static final String SALE_UOM_ID = "sale_uom_id";
     public static final String PURCHASE_UOM_ID = "purchase_uom_id";
     public static final String CURRENT_STOCK = "current_stock";
+    public static final String TEST_UPPER_UNIT_PRICE = "upper_unit_price";
+    public static final String TEST_LOWER_UNIT_PRICE = "lower_unit_price";
 }

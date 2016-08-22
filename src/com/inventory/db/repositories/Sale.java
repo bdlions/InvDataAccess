@@ -24,53 +24,53 @@ import java.util.List;
  * @author nazmul hasan
  */
 public class Sale {
+
     private Connection connection;
-    /***
+
+    /**
+     * *
      * Restrict to call without connection
      */
-    private Sale(){}
+    private Sale() {
+    }
+
     public Sale(Connection connection) {
         this.connection = connection;
     }
-    
-    public void addSaleOrder(SaleInfo saleInfo) throws DBSetupException, SQLException
-    {
+
+    public void addSaleOrder(SaleInfo saleInfo) throws DBSetupException, SQLException {
         try (EasyStatement stmt = new EasyStatement(connection, QueryManager.ADD_SALE_ORDER)) {
-            stmt.setString(QueryField.ORDER_NO, saleInfo.getOrderNo());            
-            stmt.setInt(QueryField.CUSTOMER_USER_ID, saleInfo.getCustomerUserId());            
-            stmt.setInt(QueryField.STATUS_ID, saleInfo.getStatusId());            
-            stmt.setInt(QueryField.SALE_DATE, saleInfo.getSaleDate());            
+            stmt.setString(QueryField.ORDER_NO, saleInfo.getOrderNo());
+            stmt.setInt(QueryField.CUSTOMER_USER_ID, saleInfo.getCustomerUserId());
+            stmt.setInt(QueryField.STATUS_ID, saleInfo.getStatusId());
+            stmt.setInt(QueryField.SALE_DATE, saleInfo.getSaleDate());
             stmt.setDouble(QueryField.DISCOUNT, saleInfo.getDiscount());
             stmt.setString(QueryField.REMARKS, saleInfo.getRemarks());
             stmt.executeUpdate();
         }
         this.addSaleOrderProductList(saleInfo);
-        this.addShowroomStock(saleInfo);
+        //this.addShowroomStock(saleInfo);
     }
-    
-    public void addSaleOrderProductList(SaleInfo saleInfo) throws DBSetupException, SQLException
-    {
+
+    public void addSaleOrderProductList(SaleInfo saleInfo) throws DBSetupException, SQLException {
         //right now we are using loop. later use insert batch
         List<ProductInfo> productList = saleInfo.getProductList();
-        for(ProductInfo productInfo:productList)
-        {
+        for (ProductInfo productInfo : productList) {
             try (EasyStatement stmt = new EasyStatement(connection, QueryManager.ADD_SALE_ORDER_PRODUCT_LIST)) {
                 stmt.setInt(QueryField.PRODUCT_ID, productInfo.getId());
                 stmt.setString(QueryField.SALE_ORDER_NO, saleInfo.getOrderNo());
                 stmt.setString(QueryField.PURCHASE_ORDER_NO, productInfo.getPurchaseOrderNo());
                 stmt.setDouble(QueryField.UNIT_PRICE, productInfo.getUnitPrice());
-                stmt.setDouble(QueryField.DISCOUNT, productInfo.getDiscount());            
+                stmt.setDouble(QueryField.DISCOUNT, productInfo.getDiscount());
                 stmt.executeUpdate();
             }
         }
     }
-    
-    public void addShowroomStock(SaleInfo saleInfo) throws DBSetupException, SQLException
-    {
-    //right now we are using loop. later use insert batch
+
+    public void addShowroomStock(SaleInfo saleInfo) throws DBSetupException, SQLException {
+        //right now we are using loop. later use insert batch
         List<ProductInfo> productList = saleInfo.getProductList();
-        for(ProductInfo productInfo:productList)
-        {
+        for (ProductInfo productInfo : productList) {
             try (EasyStatement stmt = new EasyStatement(connection, QueryManager.ADD_SHOWROOM_STOCK)) {
                 stmt.setString(QueryField.PURCHASE_ORDER_NO, productInfo.getPurchaseOrderNo());
                 stmt.setString(QueryField.SALE_ORDER_NO, saleInfo.getOrderNo());
@@ -78,19 +78,17 @@ public class Sale {
                 stmt.setDouble(QueryField.STOCK_OUT, productInfo.getQuantity());
                 stmt.setDouble(QueryField.STOCK_IN, 0);
                 //right now transaction category id constant. later update it from config file
-                stmt.setInt(QueryField.TRANSACTION_CATEGORY_ID, 5);           
+                stmt.setInt(QueryField.TRANSACTION_CATEGORY_ID, 5);
                 stmt.executeUpdate();
             }
         }
     }
-    
-    public List<SaleInfo> getAllSaleOrders() throws DBSetupException, SQLException
-    {
+
+    public List<SaleInfo> getAllSaleOrders() throws DBSetupException, SQLException {
         List<SaleInfo> saleList = new ArrayList<>();
-        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_ALL_SALE_ORDERS)){
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_ALL_SALE_ORDERS)) {
             ResultSet rs = stmt.executeQuery();
-            while(rs.next())
-            {
+            while (rs.next()) {
                 SaleInfo saleInfo = new SaleInfo();
                 saleInfo.setOrderNo(rs.getString(QueryField.ORDER_NO));
                 saleInfo.setSaleDate(rs.getInt(QueryField.SALE_DATE));
@@ -103,5 +101,23 @@ public class Sale {
             }
         }
         return saleList;
+    }
+
+    public SaleInfo getSaleOrderInfo(String orderNo) throws DBSetupException, SQLException {
+        SaleInfo saleInfo = new SaleInfo();
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_SALE_ORDER_INFO)) {
+            stmt.setString(QueryField.ORDER_NO, orderNo);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                saleInfo.setOrderNo(rs.getString(QueryField.ORDER_NO));
+                saleInfo.setSaleDate(rs.getInt(QueryField.SALE_DATE));
+                saleInfo.setRemarks(rs.getString(QueryField.REMARKS));
+                CustomerInfo customerInfo = new CustomerInfo();
+                customerInfo.getProfileInfo().setFirstName(rs.getString(QueryField.FIRST_NAME));
+                customerInfo.getProfileInfo().setLastName(rs.getString(QueryField.LAST_NAME));
+                saleInfo.setCustomerInfo(customerInfo);
+            }
+        }
+        return saleInfo;
     }
 }

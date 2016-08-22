@@ -45,19 +45,19 @@ public class ProductManagerTest {
     public void tearDown() {
     }
 
-    // @Test
+//      @Test
     public void createProductTest() {
         ProductInfo productInfo1 = new ProductInfo();
-        productInfo1.setName("a1");
-        productInfo1.setCode("b1");
-        productInfo1.setLength("c1");
-        productInfo1.setWidth("d1");
-        productInfo1.setHeight("e1");
-        productInfo1.setWeight("f1");
-        productInfo1.setUnitPrice(100);
+        productInfo1.setName("a2");
+        productInfo1.setCode("b2");
+        productInfo1.setLength("c2");
+        productInfo1.setWidth("d2");
+        productInfo1.setHeight("e2");
+        productInfo1.setWeight("f2");
+        productInfo1.setUnitPrice(200);
         productManager.createProduct(productInfo1);
     }
-    // @Test
+    //  @Test
 
     public void getProductListTest() {
         List<ProductInfo> productInfoList = productManager.getAllProducts();
@@ -75,12 +75,39 @@ public class ProductManagerTest {
         List<ProductTypeInfo> productTypeInfoList = productManager.getAllProductTypes();
         System.out.println(productTypeInfoList);
     }
-    
-     //@Test
 
-    public void getAllUOMs() {
+    //@Test
+    public void getAllUOMsTest() {
         List<UOMInfo> uOMInfoList = productManager.getAllUOMs();
         System.out.println(uOMInfoList);
+    }
+
+//    @Test
+
+    public void getProductInfoTest() {
+//        ProductTypeInfo typeInfo = new ProductTypeInfo();
+//        typeInfo.setId(3);
+//        ProductInfo productInfo1 = new ProductInfo();
+//        productInfo1.setProductTypeInfo(typeInfo);
+//        productInfo1.setName("a");
+//        System.out.println("%"+"1"+"%");
+//        productInfo1.setUnitPrice(500);
+        productManager.getProductInfo(1);
+    }
+    @Test
+
+    public void updateProductTest() {
+   ProductInfo productInfo1 = new ProductInfo();
+       productInfo1.setId(1);
+        productInfo1.setName("u2");
+        productInfo1.setCode("u1");
+        productInfo1.setLength("u2");
+        productInfo1.setWidth("u2");
+        productInfo1.setHeight("u2");
+        productInfo1.setWeight("u2");
+        productInfo1.setUnitPrice(500);
+        productManager.updateProduct(productInfo1);
+
     }
 
 }

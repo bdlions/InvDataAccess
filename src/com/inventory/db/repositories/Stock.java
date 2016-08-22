@@ -54,4 +54,10 @@ public class Stock {
         }
         return productList;
     }
+    public List<ProductInfo> getStockInfo(ProductInfo pInfo) throws DBSetupException, SQLException
+    {
+        List<ProductInfo> productList = new ArrayList<>();
+   
+        return productList;
+    }
 }

@@ -23,8 +23,7 @@ import org.junit.Test;
 public class PurchaseManagerTest {
 
     final static PurchaseManager purcheshManager = new PurchaseManager();
-   
-    int supplierUserId = 9221501;
+    int supplierUserId = 1805505;
 
     public PurchaseManagerTest() {
     }
@@ -45,7 +44,7 @@ public class PurchaseManagerTest {
     public void tearDown() {
     }
 
-    //@Test
+//    @Test
     public void getAllProductCategoriesTest() {
         ProductInfo productInfo1 = new ProductInfo();
         productInfo1.setId(1);
@@ -64,12 +63,16 @@ public class PurchaseManagerTest {
         purcheshManager.addPurchaseOrder(purchaseInfo);
 
     }
-   // @Test
-    public void getAllPurchaseOrdersTest() {
-      List<PurchaseInfo> purchaseInfoList =  purcheshManager.getAllPurchaseOrders();
-      System.out.println(purchaseInfoList);
-    }
+//     @Test
 
-    
+    public void getAllPurchaseOrdersTest() {
+        List<PurchaseInfo> purchaseInfoList = purcheshManager.getAllPurchaseOrders();
+        System.out.println(purchaseInfoList);
+    }
+     @Test
+    public void getPurchaseOrderTest() {
+        PurchaseInfo pInfo = purcheshManager.getPurchaseOrderInfo("order1");
+        System.out.println(pInfo.getOrderNo());
+    }
 
 }

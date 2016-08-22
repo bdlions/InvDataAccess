@@ -42,7 +42,7 @@ public class SupplierManagerTest {
     public void tearDown() {
     }
 
-    @Test
+//    @Test
 
     public void createSupplierTest() {
         ProfileInfo userInfo = new ProfileInfo();
@@ -57,10 +57,16 @@ public class SupplierManagerTest {
         supplierManager.createSupplier(supplierInfo);
     }
 
-    @Test
+//    @Test
     public void getAllSuppliersTest() {
         List<SupplierInfo> supllierList = supplierManager.getAllSuppliers();
         System.out.println(supllierList);
+    }
+  
+//    @Test
+    public void getSupplierTest() {
+        SupplierInfo supllierInfo = supplierManager.getSuplierInfo(1);
+        System.out.println(supllierInfo.getProfileInfo().getFirstName());
     }
   
 }

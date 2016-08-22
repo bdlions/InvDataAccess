@@ -25,23 +25,24 @@ import org.slf4j.LoggerFactory;
  * @author nazmul hasan
  */
 public class CustomerManager {
+
     private User user;
     private Customer customer;
     private final Logger logger = LoggerFactory.getLogger(EasyStatement.class);
-    public void createCustomer(CustomerInfo customerInfo)
-    {
+
+    public void createCustomer(CustomerInfo customerInfo) {
         //create a new user
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
             connection.setAutoCommit(false);
-            
+
             //right now group id constant. Later update it from configuraiton file
             customerInfo.getProfileInfo().setGroupId(2);
-            
+
             user = new User(connection);
-            int userId = user.createUser(customerInfo.getProfileInfo()); 
-            
+            int userId = user.createUser(customerInfo.getProfileInfo());
+
             customerInfo.getProfileInfo().setId(userId);
             customer = new Customer(connection);
             customer.createCustomer(customerInfo);
@@ -50,7 +51,7 @@ public class CustomerManager {
             connection.close();
         } catch (SQLException ex) {
             try {
-                if(connection != null){
+                if (connection != null) {
                     connection.rollback();
                     connection.close();
                 }
@@ -61,25 +62,25 @@ public class CustomerManager {
             logger.error(ex.getMessage());
         }
     }
-    
+
     /**
      * This method will return all customers
+     *
      * @return list, customer list
      */
-    public List<CustomerInfo> getAllCustomers()
-    {
-        List<CustomerInfo> customerList = new ArrayList<>(); 
+    public List<CustomerInfo> getAllCustomers() {
+        List<CustomerInfo> customerList = new ArrayList<>();
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
-            
+
             customer = new Customer(connection);
             customerList = customer.getAllCustomers();
 
             connection.close();
         } catch (SQLException ex) {
             try {
-                if(connection != null){
+                if (connection != null) {
                     connection.close();
                 }
             } catch (SQLException ex1) {
@@ -89,5 +90,28 @@ public class CustomerManager {
             logger.error(ex.getMessage());
         }
         return customerList;
+    }
+
+    public CustomerInfo getCustomerInfo(int customerId) {
+        CustomerInfo customerInfo = new CustomerInfo();
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+            customer = new Customer(connection);
+            customerInfo = customer.getCustomerInfo(customerId);
+
+            connection.close();
+        } catch (SQLException ex) {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+        return customerInfo;
     }
 }

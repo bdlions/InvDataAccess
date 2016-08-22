@@ -23,26 +23,28 @@ import org.slf4j.LoggerFactory;
  * @author nazmul hasan
  */
 public class SupplierManager {
+
     private User user;
     private Supplier supplier;
     private final Logger logger = LoggerFactory.getLogger(EasyStatement.class);
+
     /**
      * This method will create a new supplier
-     * @param supplierInfo, 
+     *
+     * @param supplierInfo,
      */
-    public void createSupplier(SupplierInfo supplierInfo)
-    {
+    public void createSupplier(SupplierInfo supplierInfo) {
         //create a new user
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
             connection.setAutoCommit(false);
-            
+
             //right now group id constant. Later update it from configuraiton file
             supplierInfo.getProfileInfo().setGroupId(1);
             user = new User(connection);
-            int userId = user.createUser(supplierInfo.getProfileInfo()); 
-            
+            int userId = user.createUser(supplierInfo.getProfileInfo());
+
             supplierInfo.getProfileInfo().setId(userId);
             supplier = new Supplier(connection);
             supplier.createSupplier(supplierInfo);
@@ -51,7 +53,7 @@ public class SupplierManager {
             connection.close();
         } catch (SQLException ex) {
             try {
-                if(connection != null){
+                if (connection != null) {
                     connection.rollback();
                     connection.close();
                 }
@@ -65,25 +67,25 @@ public class SupplierManager {
         //add address
         //add supplier info
     }
-    
+
     /**
      * This method will return all suppliers
+     *
      * @return list, supplier list
      */
-    public List<SupplierInfo> getAllSuppliers()
-    {
-        List<SupplierInfo> supplierList = new ArrayList<>(); 
+    public List<SupplierInfo> getAllSuppliers() {
+        List<SupplierInfo> supplierList = new ArrayList<>();
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
-            
+
             supplier = new Supplier(connection);
             supplierList = supplier.getAllSuppliers();
 
             connection.close();
         } catch (SQLException ex) {
             try {
-                if(connection != null){
+                if (connection != null) {
                     connection.close();
                 }
             } catch (SQLException ex1) {
@@ -94,6 +96,53 @@ public class SupplierManager {
         }
         return supplierList;
     }
-    
-    
+
+    public List<SupplierInfo> getSuplierInfo(SupplierInfo sInfo) {
+        List<SupplierInfo> supplierList = new ArrayList<>();
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+
+            supplier = new Supplier(connection);
+            supplierList = supplier.getSupplierInfo(sInfo);
+
+            connection.close();
+        } catch (SQLException ex) {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+        return supplierList;
+    }
+
+    public SupplierInfo getSuplierInfo(int suppliedId) {
+        SupplierInfo supplierInfo = new SupplierInfo();
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+
+            supplier = new Supplier(connection);
+            supplierInfo = supplier.getSupplierInfo(suppliedId);
+
+            connection.close();
+        } catch (SQLException ex) {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+        return supplierInfo;
+    }
+
 }

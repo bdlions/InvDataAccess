@@ -22,32 +22,33 @@ import java.util.List;
  * @author nazmul hasan
  */
 public class Supplier {
+
     private Connection connection;
-    /***
+
+    /**
+     * *
      * Restrict to call without connection
      */
-    private Supplier(){}
+    private Supplier() {
+    }
+
     public Supplier(Connection connection) {
         this.connection = connection;
     }
-    
-    public void createSupplier(SupplierInfo supplierInfo) throws DBSetupException, SQLException
-    {
+
+    public void createSupplier(SupplierInfo supplierInfo) throws DBSetupException, SQLException {
         try (EasyStatement stmt = new EasyStatement(connection, QueryManager.CREATE_SUPPLIER)) {
             stmt.setInt(QueryField.USER_ID, supplierInfo.getProfileInfo().getId());
             stmt.setString(QueryField.REMARKS, supplierInfo.getRemarks());
             stmt.executeUpdate();
         }
     }
-    
-    public List<SupplierInfo> getAllSuppliers()throws DBSetupException, SQLException
-    {
+
+    public List<SupplierInfo> getAllSuppliers() throws DBSetupException, SQLException {
         List<SupplierInfo> supplierList = new ArrayList<>();
-        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_ALL_SUPPLIERS))
-        {
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_ALL_SUPPLIERS)) {
             ResultSet rs = stmt.executeQuery();
-            while(rs.next())
-            {
+            while (rs.next()) {
                 SupplierInfo supplierInfo = new SupplierInfo();
                 supplierInfo.setRemarks(rs.getString(QueryField.REMARKS));
                 ProfileInfo userInfo = new ProfileInfo();
@@ -62,6 +63,33 @@ public class Supplier {
                 supplierList.add(supplierInfo);
             }
         }
+        return supplierList;
+    }
+
+    public SupplierInfo getSupplierInfo(int suppliedId) throws DBSetupException, SQLException {
+        SupplierInfo supplierInfo = new SupplierInfo();
+         try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_SUPPLIER_INFO)) {
+             stmt.setInt(QueryField.ID, suppliedId);
+             ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                supplierInfo.setRemarks(rs.getString(QueryField.REMARKS));
+                ProfileInfo userInfo = new ProfileInfo();
+                userInfo.setId(rs.getInt(QueryField.USER_ID));
+                userInfo.setFirstName(rs.getString(QueryField.FIRST_NAME));
+                userInfo.setLastName(rs.getString(QueryField.LAST_NAME));
+                userInfo.setEmail(rs.getString(QueryField.EMAIL));
+                userInfo.setPhone(rs.getString(QueryField.PHONE));
+                userInfo.setFax(rs.getString(QueryField.FAX));
+                userInfo.setWebsite(rs.getString(QueryField.WEBSITE));
+                supplierInfo.setProfileInfo(userInfo);
+            }
+        }
+        return supplierInfo;
+    }
+
+    public List<SupplierInfo> getSupplierInfo(SupplierInfo sInfo) throws DBSetupException, SQLException {
+        List<SupplierInfo> supplierList = new ArrayList<>();
+
         return supplierList;
     }
 }

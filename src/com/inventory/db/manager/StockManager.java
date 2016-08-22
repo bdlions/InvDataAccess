@@ -54,4 +54,29 @@ public class StockManager {
         }
         return productList;
     }
+      public List<ProductInfo> getStockInfo(ProductInfo pInfo)
+    {
+        List<ProductInfo> productList = new ArrayList<>(); 
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+            
+            stock = new Stock(connection);
+            productList = stock.getStockInfo(pInfo);
+
+            connection.close();
+        } catch (SQLException ex) {
+            logger.error(ex.getMessage());
+            try {
+                if(connection != null){
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+        return productList;
+    }
 }

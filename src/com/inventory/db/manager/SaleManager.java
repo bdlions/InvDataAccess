@@ -76,4 +76,52 @@ public class SaleManager {
         }
         return saleList;
     }
+    public List<SaleInfo> getSaleOrdersInfo(SaleInfo sInfo)
+    {
+        List<SaleInfo> saleList = new ArrayList<>();
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+            
+            sale = new Sale(connection);
+//            saleList = sale.getSaleOrdersInfo(sInfo);
+            
+            connection.close();
+        } catch (SQLException ex) {
+            try {
+                if(connection != null){
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+        return saleList;
+    }
+    public SaleInfo getSaleOrderInfo(String saleOrder)
+    {
+        SaleInfo saleInfo = new SaleInfo();
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+            
+            sale = new Sale(connection);
+            saleInfo = sale.getSaleOrderInfo(saleOrder);
+            
+            connection.close();
+        } catch (SQLException ex) {
+            try {
+                if(connection != null){
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+        return saleInfo;
+    }
 }

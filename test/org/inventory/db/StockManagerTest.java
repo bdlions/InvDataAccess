@@ -47,4 +47,5 @@ public class StockManagerTest {
         List<ProductInfo> productInfoList = stockManager.getCurrentStocks();
         System.out.println(productInfoList);
     }
+    
 }

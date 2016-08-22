@@ -44,13 +44,14 @@ public class CustomerManagerTest {
 
     @Before
     public void setUp() {
+        
     }
 
     @After
     public void tearDown() {
     }
 
-    @Test
+//    @Test
 
     public void createCustomerTest() {
 
@@ -73,7 +74,7 @@ public class CustomerManagerTest {
         AddressCategoryInfo addressCategoryInfo = new AddressCategoryInfo();
         addressCategoryInfo.setId(1);
         addressCategoryInfo.setTitle("Business");
-        
+
         addressInfo.setAddressTypeInfo(addressTypeInfo);
         addressInfo.setAddressCategoryInfo(addressCategoryInfo);
         List<AddressInfo> addresses = new ArrayList<>();
@@ -83,10 +84,17 @@ public class CustomerManagerTest {
         customerInfo.setProfileInfo(userInfo);
         customerManager.createCustomer(customerInfo);
     }
- // @Test
+
+//    @Test
     public void getAllCustomersTest() {
-      List<CustomerInfo> customerInfoList =  customerManager.getAllCustomers();
-      System.out.println(customerInfoList);
+        List<CustomerInfo> customerInfoList = customerManager.getAllCustomers();
+        System.out.println(customerInfoList);
+    }
+
+//    @Test
+    public void getCustomerInfoTest() {
+        CustomerInfo customerInfoInfo = customerManager.getCustomerInfo(4);
+        System.out.println(customerInfoInfo.getProfileInfo().getFirstName());
     }
 
 }

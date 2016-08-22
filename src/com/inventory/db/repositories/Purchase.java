@@ -26,20 +26,25 @@ import org.slf4j.LoggerFactory;
  * @author nazmul hasan
  */
 public class Purchase {
+
     private final Logger logger = LoggerFactory.getLogger(Purchase.class);
     private Utils utils = new Utils();
     private Connection connection;
-    /***
+
+    /**
+     * *
      * Restrict to call without connection
      */
-    private Purchase(){}
+    private Purchase() {
+    }
+
     public Purchase(Connection connection) {
         this.connection = connection;
     }
-    public void addPurchaseOrder(PurchaseInfo purchaseInfo) throws DBSetupException, SQLException
-    {
+
+    public void addPurchaseOrder(PurchaseInfo purchaseInfo) throws DBSetupException, SQLException {
         try (EasyStatement stmt = new EasyStatement(connection, QueryManager.ADD_PURCHASE_ORDER)) {
-            try{
+            try {
                 stmt.setString(QueryField.ORDER_NO, purchaseInfo.getOrderNo());
                 stmt.setInt(QueryField.SUPPLIER_USER_ID, purchaseInfo.getSupplierUserId());
                 stmt.setInt(QueryField.STATUS_ID, purchaseInfo.getStatusId());
@@ -48,8 +53,7 @@ public class Purchase {
                 stmt.setDouble(QueryField.DISCOUNT, purchaseInfo.getDiscount());
                 stmt.setString(QueryField.REMARKS, purchaseInfo.getRemarks());
                 stmt.executeUpdate();
-            }
-            catch(Exception ex){
+            } catch (Exception ex) {
                 logger.debug(ex.getMessage());
             }
         }
@@ -58,63 +62,55 @@ public class Purchase {
         this.addShowroomPurchasedProductList(purchaseInfo);
         this.addShowroomStock(purchaseInfo);
     }
-    
-    public void addWarehousePurchasedProductList(PurchaseInfo purchaseInfo) throws DBSetupException, SQLException
-    {
+
+    public void addWarehousePurchasedProductList(PurchaseInfo purchaseInfo) throws DBSetupException, SQLException {
         //right now we are using loop. later use insert batch
         List<ProductInfo> productList = purchaseInfo.getProductList();
-        for(ProductInfo productInfo:productList)
-        {
+        for (ProductInfo productInfo : productList) {
             try (EasyStatement stmt = new EasyStatement(connection, QueryManager.ADD_WAREHOUSE_PURCHASED_PRODUCT_LIST)) {
                 stmt.setInt(QueryField.PRODUCT_ID, productInfo.getId());
                 stmt.setString(QueryField.ORDER_NO, purchaseInfo.getOrderNo());
                 stmt.setDouble(QueryField.UNIT_PRICE, productInfo.getUnitPrice());
-                stmt.setDouble(QueryField.DISCOUNT, productInfo.getDiscount());            
+                stmt.setDouble(QueryField.DISCOUNT, productInfo.getDiscount());
                 stmt.executeUpdate();
             }
         }
     }
-    
-    public void addWarehouseStock(PurchaseInfo purchaseInfo) throws DBSetupException, SQLException
-    {
+
+    public void addWarehouseStock(PurchaseInfo purchaseInfo) throws DBSetupException, SQLException {
         //right now we are using loop. later use insert batch
         List<ProductInfo> productList = purchaseInfo.getProductList();
-        for(ProductInfo productInfo:productList)
-        {
+        for (ProductInfo productInfo : productList) {
             try (EasyStatement stmt = new EasyStatement(connection, QueryManager.ADD_WAREHOUSE_STOCK)) {
                 stmt.setString(QueryField.ORDER_NO, purchaseInfo.getOrderNo());
                 stmt.setInt(QueryField.PRODUCT_ID, productInfo.getId());
                 stmt.setDouble(QueryField.STOCK_IN, productInfo.getQuantity());
                 stmt.setDouble(QueryField.STOCK_OUT, 0);
                 //right now transaction category id constant. later update it from config file
-                stmt.setInt(QueryField.TRANSACTION_CATEGORY_ID, 1);           
+                stmt.setInt(QueryField.TRANSACTION_CATEGORY_ID, 1);
                 stmt.executeUpdate();
             }
         }
     }
-    
-    public void addShowroomPurchasedProductList(PurchaseInfo purchaseInfo) throws DBSetupException, SQLException
-    {
+
+    public void addShowroomPurchasedProductList(PurchaseInfo purchaseInfo) throws DBSetupException, SQLException {
         //right now we are using loop. later use insert batch
         List<ProductInfo> productList = purchaseInfo.getProductList();
-        for(ProductInfo productInfo:productList)
-        {
+        for (ProductInfo productInfo : productList) {
             try (EasyStatement stmt = new EasyStatement(connection, QueryManager.ADD_SHOWROOM_PURCHASED_PRODUCT_LIST)) {
                 stmt.setInt(QueryField.PRODUCT_ID, productInfo.getId());
                 stmt.setString(QueryField.ORDER_NO, purchaseInfo.getOrderNo());
                 stmt.setDouble(QueryField.UNIT_PRICE, productInfo.getUnitPrice());
-                stmt.setDouble(QueryField.DISCOUNT, productInfo.getDiscount());            
+                stmt.setDouble(QueryField.DISCOUNT, productInfo.getDiscount());
                 stmt.executeUpdate();
             }
         }
     }
-    
-    public void addShowroomStock(PurchaseInfo purchaseInfo) throws DBSetupException, SQLException
-    {
+
+    public void addShowroomStock(PurchaseInfo purchaseInfo) throws DBSetupException, SQLException {
         //right now we are using loop. later use insert batch
         List<ProductInfo> productList = purchaseInfo.getProductList();
-        for(ProductInfo productInfo:productList)
-        {
+        for (ProductInfo productInfo : productList) {
             try (EasyStatement stmt = new EasyStatement(connection, QueryManager.ADD_SHOWROOM_STOCK)) {
                 stmt.setString(QueryField.PURCHASE_ORDER_NO, purchaseInfo.getOrderNo());
                 stmt.setString(QueryField.SALE_ORDER_NO, null);
@@ -122,19 +118,17 @@ public class Purchase {
                 stmt.setDouble(QueryField.STOCK_IN, productInfo.getQuantity());
                 stmt.setDouble(QueryField.STOCK_OUT, 0);
                 //right now transaction category id constant. later update it from config file
-                stmt.setInt(QueryField.TRANSACTION_CATEGORY_ID, 1);           
+                stmt.setInt(QueryField.TRANSACTION_CATEGORY_ID, 1);
                 stmt.executeUpdate();
             }
         }
     }
-    
-    public List<PurchaseInfo> getAllPurchaseOrders() throws DBSetupException, SQLException
-    {
+
+    public List<PurchaseInfo> getAllPurchaseOrders() throws DBSetupException, SQLException {
         List<PurchaseInfo> purchaseList = new ArrayList<>();
-        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_ALL_PURCHASE_ORDERS)){
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_ALL_PURCHASE_ORDERS)) {
             ResultSet rs = stmt.executeQuery();
-            while(rs.next())
-            {
+            while (rs.next()) {
                 PurchaseInfo purchaseInfo = new PurchaseInfo();
                 purchaseInfo.setOrderNo(rs.getString(QueryField.ORDER_NO));
                 purchaseInfo.setOrderDate(utils.convertUnixToHuman(rs.getLong(QueryField.ORDER_DATE)));
@@ -147,5 +141,22 @@ public class Purchase {
             }
         }
         return purchaseList;
+    }
+    public PurchaseInfo getPurchaseOrderInfo(String purchaseOrder) throws DBSetupException, SQLException {
+        PurchaseInfo purchaseInfo = new PurchaseInfo();
+     try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_PURCHASE_ORDER_INFO)) {
+         stmt.setString(QueryField.ORDER_NO, purchaseOrder);
+         ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                purchaseInfo.setOrderNo(rs.getString(QueryField.ORDER_NO));
+                purchaseInfo.setOrderDate(utils.convertUnixToHuman(rs.getLong(QueryField.ORDER_DATE)));
+                purchaseInfo.setRemarks(rs.getString(QueryField.REMARKS));
+                SupplierInfo supplierInfo = new SupplierInfo();
+                supplierInfo.getProfileInfo().setFirstName(rs.getString(QueryField.FIRST_NAME));
+                supplierInfo.getProfileInfo().setLastName(rs.getString(QueryField.LAST_NAME));
+                purchaseInfo.setSupplierInfo(supplierInfo);
+            }
+        }
+        return purchaseInfo;
     }
 }

@@ -5,19 +5,22 @@ import com.inventory.bean.ProductInfo;
 import com.inventory.bean.PurchaseInfo;
 import com.inventory.bean.SaleInfo;
 import com.inventory.bean.SupplierInfo;
-import com.inventory.bean.UserInfo;
-import com.inventory.db.CustomerManager;
 import com.inventory.db.Database;
-import com.inventory.db.ProductManager;
-import com.inventory.db.PurchaseManager;
-import com.inventory.db.SaleManager;
-import com.inventory.db.StockManager;
-import com.inventory.db.SupplierManager;
+//import com.inventory.bean.UserInfo;
+//import com.inventory.db.CustomerManager;
+//import com.inventory.db.Database;
+//import com.inventory.db.ProductManager;
+//import com.inventory.db.PurchaseManager;
+//import com.inventory.db.SaleManager;
+//import com.inventory.db.StockManager;
+//import com.inventory.db.SupplierManager;
 import com.inventory.exceptions.DBSetupException;
 import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.naming.spi.DirStateFactory.Result;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -30,12 +33,15 @@ import java.util.List;
  * @author nazmul
  */
 public class TestMethod {
+    
+    
     public static void main(String args[]) throws DBSetupException, SQLException
     {
+     
         int customerUserId = 7830841;
         int supplierUserId = 3373501;
         // ------------------------ Initializing the database --------------------------//
-//        Database.getInstance();
+       Database.getInstance();
         // ------------------------ Adding products --------------------------//
 //        ProductInfo productInfo1 = new ProductInfo();
 //        productInfo1.setName("a1");
