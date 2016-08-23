@@ -39,13 +39,14 @@ public final class QueryManager {
     public static final String GET_PURCHASE_ORDER_INFO = "db.query.get-purchase-order-info";
     public static final String GET_SUPPLIER_INFO = "db.query.get-supplier-info";
     public static final String GET_CUSTOMER_INFO = "db.query.get-customer-info";
-    public static final String GET_CUSTOMER_INFO_BY_NAME = "db.query.get-customer-info-by-name";
     public static final String GET_SALE_ORDER_INFO = "db.query.get-sale-order-info";
     public static final String GET_USER_ADDRESSES = "db.query.get-user-addresses";
     public static final String UPDATE_PRODUCT_INFO = "db.query.update-product-info";
     public static final String UPDATE_USER = "db.query.update-user-info";
     public static final String UPDATE_USER_ADDRESS = "db.query.update-user-address";
     public static final String GET_PRODUCT_INFO_BY_NAME = "db.query.get-product-info_by_name";
+    public static final String GET_CUSTOMER_INFO_BY_NAME = "db.query.get-customer-info-by-name";
+    public static final String GET_SUPPLIER_INFO_BY_NAME = "db.query.get-supplier-info-by-name";
     
     
 }

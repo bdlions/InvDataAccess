@@ -142,20 +142,11 @@ public class Product {
     public List<ProductInfo> getProductsInfoByNmae(String productName) throws DBSetupException, SQLException {
         List<ProductInfo> productList = new ArrayList<>();
         try (EasyStatement stmt = new EasyStatement(this.connection, QueryManager.GET_PRODUCT_INFO_BY_NAME);) {
-            //  stmt.setInt(QueryField.ID, pInfo.getId());
-
             stmt.setString(QueryField.NAME, "%"+productName+"%");
-//            stmt.setString(QueryField.CODE, pInfo.getCode());
-//            stmt.setInt(QueryField.TYPE_ID, pInfo.getProductTypeInfo().getId());
-//            stmt.setInt(QueryField.CATEGORY_ID, pInfo.getProductCategoryInfo().getId());
-//            stmt.setDouble(QueryField.TEST_UPPER_UNIT_PRICE, 500);
-//            stmt.setDouble(QueryField.TEST_LOWER_UNIT_PRICE, 300);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 ProductInfo productInfo = new ProductInfo();
                 productInfo.setId(rs.getInt(QueryField.ID));
-//                productInfo.getProductCategoryInfo().setTitle(rs.getString(QueryField.PRODUCT_CATEGORY));
-//                productInfo.getProductTypeInfo().setTitle(rs.getString(QueryField.PRODUCT_TYPE));
                 productInfo.setName(rs.getString(QueryField.NAME));
                 productInfo.setCode(rs.getString(QueryField.CODE));
                 productInfo.setLength(rs.getString(QueryField.LENGTH));
@@ -164,7 +155,6 @@ public class Product {
                 productInfo.setWeight(rs.getString(QueryField.WEIGHT));
                 productInfo.setUnitPrice(rs.getDouble(QueryField.UNIT_PRICE));
                 productList.add(productInfo);
-                System.out.println("name" + productInfo.getName());
             }
         }
         return productList;

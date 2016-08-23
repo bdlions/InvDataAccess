@@ -97,11 +97,9 @@ public class CustomerManagerTest {
         System.out.println(customerInfoInfo.getProfileInfo().getFirstName());
         System.out.println(customerInfoInfo.getProfileInfo().getAddresses().get(0).getAddress());
     }
-    @Test
+//    @Test
     public void getCustomerInfoByNameTest() {
-        CustomerInfo customerInfoInfo = customerManager.getCustomerInfo("Customer1");
-//        System.out.println(customerInfoInfo.getProfileInfo().getFirstName());
-//        System.out.println(customerInfoInfo.getProfileInfo().getAddresses().get(0).getAddress());
+        List<CustomerInfo> customerInfoInfo = customerManager.getCustomersInfoByName("islam");
     }
 
 //    @Test

@@ -97,14 +97,14 @@ public class SupplierManager {
         return supplierList;
     }
 
-    public List<SupplierInfo> getSuplierInfo(SupplierInfo sInfo) {
+    public List<SupplierInfo> getSupplierInfoByName(String supplierName) {
         List<SupplierInfo> supplierList = new ArrayList<>();
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
 
             supplier = new Supplier(connection);
-            supplierList = supplier.getSupplierInfo(sInfo);
+            supplierList = supplier.getSupplierInfoByName(supplierName);
 
             connection.close();
         } catch (SQLException ex) {

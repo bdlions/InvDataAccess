@@ -68,9 +68,9 @@ public class Supplier {
 
     public SupplierInfo getSupplierInfo(int suppliedId) throws DBSetupException, SQLException {
         SupplierInfo supplierInfo = new SupplierInfo();
-         try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_SUPPLIER_INFO)) {
-             stmt.setInt(QueryField.ID, suppliedId);
-             ResultSet rs = stmt.executeQuery();
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_SUPPLIER_INFO)) {
+            stmt.setInt(QueryField.ID, suppliedId);
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 supplierInfo.setRemarks(rs.getString(QueryField.REMARKS));
                 ProfileInfo userInfo = new ProfileInfo();
@@ -87,8 +87,27 @@ public class Supplier {
         return supplierInfo;
     }
 
-    public List<SupplierInfo> getSupplierInfo(SupplierInfo sInfo) throws DBSetupException, SQLException {
+    public List<SupplierInfo> getSupplierInfoByName(String supplierName) throws DBSetupException, SQLException {
         List<SupplierInfo> supplierList = new ArrayList<>();
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_SUPPLIER_INFO_BY_NAME)) {
+            stmt.setString(QueryField.FIRST_NAME, "%" +supplierName+ "%");
+            stmt.setString(QueryField.LAST_NAME, "%" +supplierName+ "%");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                SupplierInfo supplierInfo = new SupplierInfo();
+                supplierInfo.setRemarks(rs.getString(QueryField.REMARKS));
+                ProfileInfo userInfo = new ProfileInfo();
+                userInfo.setId(rs.getInt(QueryField.USER_ID));
+                userInfo.setFirstName(rs.getString(QueryField.FIRST_NAME));
+                userInfo.setLastName(rs.getString(QueryField.LAST_NAME));
+                userInfo.setEmail(rs.getString(QueryField.EMAIL));
+                userInfo.setPhone(rs.getString(QueryField.PHONE));
+                userInfo.setFax(rs.getString(QueryField.FAX));
+                userInfo.setWebsite(rs.getString(QueryField.WEBSITE));
+                supplierInfo.setProfileInfo(userInfo);
+                supplierList.add(supplierInfo);
+            }
+        }
 
         return supplierList;
     }

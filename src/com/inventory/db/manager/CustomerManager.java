@@ -116,15 +116,14 @@ public class CustomerManager {
         }
         return customerInfo;
     }
-    public CustomerInfo getCustomerInfo(String customerName) {
-        CustomerInfo customerInfo = new CustomerInfo();
+
+    public List<CustomerInfo> getCustomersInfoByName(String customerName) {
+        List<CustomerInfo> customerList = new ArrayList<>();
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
             customer = new Customer(connection);
-            customerInfo = customer.getCustomerInfoByName(customerName);
-            user = new User(connection);
-//            customerInfo.getProfileInfo().setAddresses(user.getUserAddresses(customerUserId));
+            customerList = customer.getCustomersInfoByName(customerName);
             connection.close();
         } catch (SQLException ex) {
             try {
@@ -137,7 +136,7 @@ public class CustomerManager {
         } catch (DBSetupException ex) {
             logger.error(ex.getMessage());
         }
-        return customerInfo;
+        return customerList;
     }
 
     public void updateCustomer(CustomerInfo customerInfo) {

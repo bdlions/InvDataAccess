@@ -83,35 +83,19 @@ public class ProductManagerTest {
     }
 
 //    @Test
-
     public void getProductInfoTest() {
-//        ProductTypeInfo typeInfo = new ProductTypeInfo();
-//        typeInfo.setId(3);
-//        ProductInfo productInfo1 = new ProductInfo();
-//        productInfo1.setProductTypeInfo(typeInfo);
-//        productInfo1.setName("a");
-//        System.out.println("%"+"1"+"%");
-//        productInfo1.setUnitPrice(500);
         productManager.getProductInfo(1);
     }
-    @Test
 
+    @Test
     public void getProductInfosTest() {
-        ProductTypeInfo typeInfo = new ProductTypeInfo();
-        typeInfo.setId(3);
-        ProductInfo productInfo1 = new ProductInfo();
-        productInfo1.setProductTypeInfo(typeInfo);
-        productInfo1.setName("a");
-//        System.out.println("%"+"1"+"%");
-//        productInfo1.setUnitPrice(500);
         productManager.getProductsInfoByName("a");
     }
-    
-//    @Test
 
+//    @Test
     public void updateProductTest() {
-   ProductInfo productInfo1 = new ProductInfo();
-       productInfo1.setId(1);
+        ProductInfo productInfo1 = new ProductInfo();
+        productInfo1.setId(1);
         productInfo1.setName("uu2");
         productInfo1.setCode("u1u");
         productInfo1.setLength("uu2");

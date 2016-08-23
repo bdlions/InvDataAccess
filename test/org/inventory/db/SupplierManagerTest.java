@@ -13,6 +13,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  *
@@ -58,6 +59,10 @@ public class SupplierManagerTest {
     public void getAllSuppliersTest() {
         List<SupplierInfo> supllierList = supplierManager.getAllSuppliers();
         System.out.println(supllierList);
+    }
+//    @Test
+    public void getSuppliersByName() {
+        List<SupplierInfo> supllierList = supplierManager.getSupplierInfoByName("ln1");
     }
   
 //    @Test

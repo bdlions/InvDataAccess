@@ -85,13 +85,14 @@ public class Customer {
         return customerInfo;
     }
 
-    public CustomerInfo getCustomerInfoByName(String customerName) throws DBSetupException, SQLException {
-        CustomerInfo customerInfo = new CustomerInfo();
+    public  List<CustomerInfo> getCustomersInfoByName(String customerName) throws DBSetupException, SQLException {
+        List<CustomerInfo> customerList = new ArrayList<>();
         try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_CUSTOMER_INFO_BY_NAME)) {
             stmt.setString(QueryField.FIRST_NAME, "%" + customerName + "%");
-//            stmt.setString(QueryField.LAST_NAME, "%" + customerName + "%");
+            stmt.setString(QueryField.LAST_NAME, "%" + customerName + "%");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+                CustomerInfo customerInfo = new CustomerInfo();
                 ProfileInfo userInfo = new ProfileInfo();
                 userInfo.setId(rs.getInt(QueryField.USER_ID));
                 userInfo.setFirstName(rs.getString(QueryField.FIRST_NAME));
@@ -100,11 +101,10 @@ public class Customer {
                 userInfo.setPhone(rs.getString(QueryField.PHONE));
                 userInfo.setFax(rs.getString(QueryField.FAX));
                 userInfo.setWebsite(rs.getString(QueryField.WEBSITE));
-                System.out.println("name"+userInfo.getFirstName());
                 customerInfo.setProfileInfo(userInfo);
+                customerList.add(customerInfo);
             }
         }
-        return customerInfo;
+        return customerList;
     }
-
 }
