@@ -139,17 +139,17 @@ public class Product {
         return productList;
     }
 
-    public List<ProductInfo> getProductsInfo(ProductInfo pInfo) throws DBSetupException, SQLException {
+    public List<ProductInfo> getProductsInfoByNmae(String productName) throws DBSetupException, SQLException {
         List<ProductInfo> productList = new ArrayList<>();
-        try (EasyStatement stmt = new EasyStatement(this.connection, QueryManager.GET_PRODUCT_INFO_LIST);) {
+        try (EasyStatement stmt = new EasyStatement(this.connection, QueryManager.GET_PRODUCT_INFO_BY_NAME);) {
             //  stmt.setInt(QueryField.ID, pInfo.getId());
 
-//            stmt.setString(QueryField.NAME, "%"+pInfo.getName()+"%");
+            stmt.setString(QueryField.NAME, "%"+productName+"%");
 //            stmt.setString(QueryField.CODE, pInfo.getCode());
 //            stmt.setInt(QueryField.TYPE_ID, pInfo.getProductTypeInfo().getId());
 //            stmt.setInt(QueryField.CATEGORY_ID, pInfo.getProductCategoryInfo().getId());
-            stmt.setDouble(QueryField.TEST_UPPER_UNIT_PRICE, 500);
-            stmt.setDouble(QueryField.TEST_LOWER_UNIT_PRICE, 300);
+//            stmt.setDouble(QueryField.TEST_UPPER_UNIT_PRICE, 500);
+//            stmt.setDouble(QueryField.TEST_LOWER_UNIT_PRICE, 300);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 ProductInfo productInfo = new ProductInfo();

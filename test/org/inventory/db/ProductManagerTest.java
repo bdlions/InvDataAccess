@@ -96,6 +96,19 @@ public class ProductManagerTest {
     }
     @Test
 
+    public void getProductInfosTest() {
+        ProductTypeInfo typeInfo = new ProductTypeInfo();
+        typeInfo.setId(3);
+        ProductInfo productInfo1 = new ProductInfo();
+        productInfo1.setProductTypeInfo(typeInfo);
+        productInfo1.setName("a");
+//        System.out.println("%"+"1"+"%");
+//        productInfo1.setUnitPrice(500);
+        productManager.getProductsInfoByName("a");
+    }
+    
+//    @Test
+
     public void updateProductTest() {
    ProductInfo productInfo1 = new ProductInfo();
        productInfo1.setId(1);

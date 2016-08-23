@@ -97,6 +97,12 @@ public class CustomerManagerTest {
         System.out.println(customerInfoInfo.getProfileInfo().getFirstName());
         System.out.println(customerInfoInfo.getProfileInfo().getAddresses().get(0).getAddress());
     }
+    @Test
+    public void getCustomerInfoByNameTest() {
+        CustomerInfo customerInfoInfo = customerManager.getCustomerInfo("Customer1");
+//        System.out.println(customerInfoInfo.getProfileInfo().getFirstName());
+//        System.out.println(customerInfoInfo.getProfileInfo().getAddresses().get(0).getAddress());
+    }
 
 //    @Test
     public void updateCustomerTest() {

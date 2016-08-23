@@ -181,14 +181,14 @@ public class ProductManager {
         return uomList;
     }
 
-    public List<ProductInfo> getProductsInfo(ProductInfo pInfo) {
+    public List<ProductInfo> getProductsInfoByName(String  productName) {
         Connection connection = null;
         List<ProductInfo> productList = new ArrayList<>();
         try {
             connection = Database.getInstance().getConnection();
 
             product = new Product(connection);
-            productList = product.getProductsInfo(pInfo);
+            productList = product.getProductsInfoByNmae(productName);
             connection.close();
         } catch (SQLException ex) {
             logger.error(ex.getMessage());

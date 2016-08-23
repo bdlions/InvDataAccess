@@ -116,6 +116,29 @@ public class CustomerManager {
         }
         return customerInfo;
     }
+    public CustomerInfo getCustomerInfo(String customerName) {
+        CustomerInfo customerInfo = new CustomerInfo();
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+            customer = new Customer(connection);
+            customerInfo = customer.getCustomerInfoByName(customerName);
+            user = new User(connection);
+//            customerInfo.getProfileInfo().setAddresses(user.getUserAddresses(customerUserId));
+            connection.close();
+        } catch (SQLException ex) {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+        return customerInfo;
+    }
 
     public void updateCustomer(CustomerInfo customerInfo) {
         //create a new user
