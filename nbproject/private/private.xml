@@ -6,8 +6,10 @@
             <file>file:/home/sampanit/Desktop/InvDataAccess/src/com/inventory/db/repositories/Product.java</file>
             <file>file:/home/sampanit/Desktop/InvDataAccess/src/com/inventory/db/query/helper/QueryManager.java</file>
             <file>file:/home/sampanit/Desktop/InvDataAccess/src/com/inventory/db/manager/ProductManager.java</file>
+            <file>file:/home/sampanit/Desktop/InvDataAccess/src/com/inventory/db/manager/SupplierManager.java</file>
             <file>file:/home/sampanit/Desktop/InvDataAccess/src/com/inventory/db/Database.java</file>
             <file>file:/home/sampanit/Desktop/InvDataAccess/src/com/inventory/db/query/helper/EasyStatement.java</file>
+            <file>file:/home/sampanit/Desktop/InvDataAccess/test/org/inventory/db/SupplierManagerTest.java</file>
             <file>file:/home/sampanit/Desktop/InvDataAccess/test/org/inventory/db/ProductManagerTest.java</file>
             <file>file:/home/sampanit/Desktop/InvDataAccess/src/dbquery.properties</file>
         </group>

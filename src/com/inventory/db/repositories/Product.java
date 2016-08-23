@@ -103,14 +103,9 @@ public class Product {
     public void updateProduct(ProductInfo productInfo) throws DBSetupException, SQLException {
 
         try (EasyStatement stmt = new EasyStatement(connection, QueryManager.UPDATE_PRODUCT_INFO)) {
-            //add some validation. If the values are not set then assign nulll instead of zero
             stmt.setInt(QueryField.ID, productInfo.getId());
             stmt.setInt(QueryField.CATEGORY_ID, productInfo.getProductCategoryInfo().getId());
             stmt.setInt(QueryField.TYPE_ID, productInfo.getProductTypeInfo().getId());
-//            stmt.setInt(QueryField.STANDARD_UOM_ID, productInfo.getStandardUOM().getId());
-//            stmt.setInt(QueryField.SALE_UOM_ID, productInfo.getSaleUOM().getId());
-//            stmt.setInt(QueryField.PURCHASE_UOM_ID, productInfo.getPurchasingUOM().getId());
-
             stmt.setString(QueryField.NAME, productInfo.getName());
             stmt.setString(QueryField.CODE, productInfo.getCode());
             stmt.setString(QueryField.LENGTH, productInfo.getLength());
@@ -196,5 +191,6 @@ public class Product {
         }
         return productInfo;
     }
+    
 
 }

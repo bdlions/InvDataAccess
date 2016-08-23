@@ -10,6 +10,7 @@ package com.inventory.bean;
  * @author nazmul hasan
  */
 public class AddressInfo {
+    private int id;
     private String address;
     private String city;
     private String state;
@@ -20,6 +21,14 @@ public class AddressInfo {
     {
         addressTypeInfo = new AddressTypeInfo();
         addressCategoryInfo = new AddressCategoryInfo();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getAddress() {

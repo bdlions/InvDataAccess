@@ -65,10 +65,10 @@ public class Customer {
         return customerList;
     }
 
-    public CustomerInfo getCustomerInfo(int customerId) throws DBSetupException, SQLException {
+    public CustomerInfo getCustomerInfo(int customerUserId) throws DBSetupException, SQLException {
         CustomerInfo customerInfo = new CustomerInfo();
         try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_CUSTOMER_INFO)) {
-            stmt.setInt(QueryField.ID, customerId);
+            stmt.setInt(QueryField.USER_ID, customerUserId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 ProfileInfo userInfo = new ProfileInfo();
@@ -84,5 +84,8 @@ public class Customer {
         }
         return customerInfo;
     }
+    
+    
+ 
 
 }

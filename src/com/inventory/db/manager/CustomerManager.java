@@ -6,6 +6,7 @@
 package com.inventory.db.manager;
 
 import com.inventory.bean.CustomerInfo;
+import com.inventory.bean.ProfileInfo;
 import com.inventory.bean.SupplierInfo;
 import com.inventory.db.Database;
 import com.inventory.db.query.helper.EasyStatement;
@@ -92,14 +93,15 @@ public class CustomerManager {
         return customerList;
     }
 
-    public CustomerInfo getCustomerInfo(int customerId) {
+    public CustomerInfo getCustomerInfo(int customerUserId) {
         CustomerInfo customerInfo = new CustomerInfo();
         Connection connection = null;
         try {
             connection = Database.getInstance().getConnection();
             customer = new Customer(connection);
-            customerInfo = customer.getCustomerInfo(customerId);
-
+            customerInfo = customer.getCustomerInfo(customerUserId);
+            user = new User(connection);
+            customerInfo.getProfileInfo().setAddresses(user.getUserAddresses(customerUserId));
             connection.close();
         } catch (SQLException ex) {
             try {
@@ -114,4 +116,29 @@ public class CustomerManager {
         }
         return customerInfo;
     }
+
+    public void updateCustomer(CustomerInfo customerInfo) {
+        //create a new user
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+            connection.setAutoCommit(false);
+            user = new User(connection);
+            user.updateUser(customerInfo.getProfileInfo());
+            connection.commit();
+            connection.close();
+        } catch (SQLException ex) {
+            try {
+                if (connection != null) {
+                    connection.rollback();
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+    }
+
 }

@@ -99,12 +99,12 @@ public class ProductManagerTest {
     public void updateProductTest() {
    ProductInfo productInfo1 = new ProductInfo();
        productInfo1.setId(1);
-        productInfo1.setName("u2");
-        productInfo1.setCode("u1");
-        productInfo1.setLength("u2");
-        productInfo1.setWidth("u2");
-        productInfo1.setHeight("u2");
-        productInfo1.setWeight("u2");
+        productInfo1.setName("uu2");
+        productInfo1.setCode("u1u");
+        productInfo1.setLength("uu2");
+        productInfo1.setWidth("u2u");
+        productInfo1.setHeight("u2u");
+        productInfo1.setWeight("u2u");
         productInfo1.setUnitPrice(500);
         productManager.updateProduct(productInfo1);
 
