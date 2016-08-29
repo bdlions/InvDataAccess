@@ -124,4 +124,29 @@ public class SaleManager {
         }
         return saleInfo;
     }
+    public void updateSaleOrder(SaleInfo saleInfo)
+    {
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+            connection.setAutoCommit(false);
+            
+            sale = new Sale(connection);
+            sale.updateSaleOrder(saleInfo);
+            
+            connection.commit();
+            connection.close();
+        } catch (SQLException ex) {
+            try {
+                if(connection != null){
+                    connection.rollback();
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+    }
 }

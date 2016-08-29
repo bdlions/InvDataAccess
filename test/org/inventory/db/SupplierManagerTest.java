@@ -70,4 +70,22 @@ public class SupplierManagerTest {
         SupplierInfo supllierInfo = supplierManager.getSuplierInfo(1);
         System.out.println(supllierInfo.getProfileInfo().getFirstName());
     }
+    //    @Test
+
+    public void updateSupplierTest() {
+        ProfileInfo userInfo = new ProfileInfo();
+        userInfo.setFirstName("Customer1");
+        userInfo.setLastName("ln1");
+        userInfo.setEmail("email1");
+        userInfo.setPhone("phone1");
+        userInfo.setFax("fax1");
+        SupplierInfo supplierInfo = new SupplierInfo();
+        supplierInfo.setProfileInfo(userInfo);
+        supplierInfo.setRemarks("remarks2");
+        supplierManager.updateSupplier(supplierInfo);
+    }
+       //    @Test
+    public void deleteCustomerInfoTest() {
+       supplierManager.updateSupplierStatus(1233);
+    }
 }

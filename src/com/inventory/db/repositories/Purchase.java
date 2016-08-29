@@ -142,11 +142,12 @@ public class Purchase {
         }
         return purchaseList;
     }
+
     public PurchaseInfo getPurchaseOrderInfo(String purchaseOrder) throws DBSetupException, SQLException {
         PurchaseInfo purchaseInfo = new PurchaseInfo();
-     try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_PURCHASE_ORDER_INFO)) {
-         stmt.setString(QueryField.ORDER_NO, purchaseOrder);
-         ResultSet rs = stmt.executeQuery();
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_PURCHASE_ORDER_INFO)) {
+            stmt.setString(QueryField.ORDER_NO, purchaseOrder);
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 purchaseInfo.setOrderNo(rs.getString(QueryField.ORDER_NO));
                 purchaseInfo.setOrderDate(utils.convertUnixToHuman(rs.getLong(QueryField.ORDER_DATE)));
@@ -157,6 +158,82 @@ public class Purchase {
                 purchaseInfo.setSupplierInfo(supplierInfo);
             }
         }
+        //add product informations
         return purchaseInfo;
+    }
+
+    public void updatePurchaseOrder(PurchaseInfo purchaseInfo) throws DBSetupException, SQLException {
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.UPDATE_PURCHASE_ORDER)) {
+            try {
+                stmt.setString(QueryField.ORDER_NO, purchaseInfo.getOrderNo());
+                stmt.setInt(QueryField.SUPPLIER_USER_ID, purchaseInfo.getSupplierUserId());
+                stmt.setInt(QueryField.STATUS_ID, purchaseInfo.getStatusId());
+                stmt.setLong(QueryField.ORDER_DATE, utils.getCurrentUnixTime());
+                stmt.setLong(QueryField.REQUESTED_SHIP_DATE, purchaseInfo.getRequestShippedDate());
+                stmt.setDouble(QueryField.DISCOUNT, purchaseInfo.getDiscount());
+                stmt.setString(QueryField.REMARKS, purchaseInfo.getRemarks());
+                stmt.executeUpdate();
+            } catch (Exception ex) {
+                logger.debug(ex.getMessage());
+            }
+        }
+        this.updateWarehousePurchasedProductList(purchaseInfo);
+        this.updateWarehouseStock(purchaseInfo);
+        this.updateShowroomPurchasedProductList(purchaseInfo);
+        this.updateShowroomStock(purchaseInfo);
+
+    }
+
+    public void updateWarehousePurchasedProductList(PurchaseInfo purchaseInfo) throws DBSetupException, SQLException {
+        List<ProductInfo> productList = purchaseInfo.getProductList();
+        for (ProductInfo productInfo : productList) {
+            try (EasyStatement stmt = new EasyStatement(connection, QueryManager.UPDATE_WAREHOUSE_PURCHASED_PRODUCT_LIST)) {
+                stmt.setInt(QueryField.PRODUCT_ID, productInfo.getId());
+                stmt.setString(QueryField.ORDER_NO, purchaseInfo.getOrderNo());
+                stmt.setDouble(QueryField.UNIT_PRICE, productInfo.getUnitPrice());
+                stmt.setDouble(QueryField.DISCOUNT, productInfo.getDiscount());
+                stmt.executeUpdate();
+            }
+        }
+    }
+
+    public void updateWarehouseStock(PurchaseInfo purchaseInfo) throws DBSetupException, SQLException {
+        //right now we are using loop. later use insert batch
+        List<ProductInfo> productList = purchaseInfo.getProductList();
+        for (ProductInfo productInfo : productList) {
+            try (EasyStatement stmt = new EasyStatement(connection, QueryManager.UPDATE_WAREHOUSE_STOCK)) {
+                stmt.setString(QueryField.ORDER_NO, purchaseInfo.getOrderNo());
+                stmt.setInt(QueryField.PRODUCT_ID, productInfo.getId());
+                stmt.setDouble(QueryField.STOCK_IN, productInfo.getQuantity());
+                stmt.executeUpdate();
+            }
+        }
+    }
+
+    public void updateShowroomPurchasedProductList(PurchaseInfo purchaseInfo) throws DBSetupException, SQLException {
+        //right now we are using loop. later use insert batch
+        List<ProductInfo> productList = purchaseInfo.getProductList();
+        for (ProductInfo productInfo : productList) {
+            try (EasyStatement stmt = new EasyStatement(connection, QueryManager.UPDATE_SHOWROOM_PURCHASED_PRODUCT_LIST)) {
+                stmt.setInt(QueryField.PRODUCT_ID, productInfo.getId());
+                stmt.setString(QueryField.ORDER_NO, purchaseInfo.getOrderNo());
+                stmt.setDouble(QueryField.UNIT_PRICE, productInfo.getUnitPrice());
+                stmt.setDouble(QueryField.DISCOUNT, productInfo.getDiscount());
+                stmt.executeUpdate();
+            }
+        }
+    }
+
+    public void updateShowroomStock(PurchaseInfo purchaseInfo) throws DBSetupException, SQLException {
+        //right now we are using loop. later use insert batch
+        List<ProductInfo> productList = purchaseInfo.getProductList();
+        for (ProductInfo productInfo : productList) {
+            try (EasyStatement stmt = new EasyStatement(connection, QueryManager.UPDATE_SHOWROOM_STOCK)) {
+                stmt.setString(QueryField.PURCHASE_ORDER_NO, purchaseInfo.getOrderNo());
+                stmt.setInt(QueryField.PRODUCT_ID, productInfo.getId());
+                stmt.setDouble(QueryField.STOCK_IN, productInfo.getQuantity());
+                stmt.executeUpdate();
+            }
+        }
     }
 }

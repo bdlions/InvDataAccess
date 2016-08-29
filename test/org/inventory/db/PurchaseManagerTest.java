@@ -69,10 +69,30 @@ public class PurchaseManagerTest {
         List<PurchaseInfo> purchaseInfoList = purcheshManager.getAllPurchaseOrders();
         System.out.println(purchaseInfoList);
     }
-     @Test
+
+//    @Test
     public void getPurchaseOrderTest() {
         PurchaseInfo pInfo = purcheshManager.getPurchaseOrderInfo("order1");
         System.out.println(pInfo.getOrderNo());
+    }
+
+//    @Test
+    public void updatePurchaseOrderTest() {
+         ProductInfo productInfo1 = new ProductInfo();
+        productInfo1.setId(2);
+        productInfo1.setUnitPrice(800);
+        productInfo1.setQuantity(700);
+        productInfo1.setDiscount(0);
+        List<ProductInfo> productList = new ArrayList<>();
+        productList.add(productInfo1);
+        PurchaseInfo purchaseInfo = new PurchaseInfo();
+        purchaseInfo.setProductList(productList);
+        purchaseInfo.setSupplierUserId(supplierUserId);
+        purchaseInfo.setOrderNo("order1");
+        purchaseInfo.setStatusId(3);
+        purchaseInfo.setRemarks("uremarks1");
+        purchaseInfo.setRequestShippedDate(456);
+        purcheshManager.updatePurchaseOrder(purchaseInfo);
     }
 
 }

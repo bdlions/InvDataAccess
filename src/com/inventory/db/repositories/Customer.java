@@ -8,6 +8,7 @@ package com.inventory.db.repositories;
 import com.inventory.bean.CustomerInfo;
 import com.inventory.bean.ProfileInfo;
 import com.inventory.db.manager.ProductManager;
+import com.inventory.db.query.helper.Constant;
 import com.inventory.db.query.helper.QueryField;
 import com.inventory.db.query.helper.QueryManager;
 import com.inventory.db.query.helper.EasyStatement;
@@ -85,7 +86,9 @@ public class Customer {
         return customerInfo;
     }
 
-    public  List<CustomerInfo> getCustomersInfoByName(String customerName) throws DBSetupException, SQLException {
+  
+
+    public List<CustomerInfo> getCustomersInfoByName(String customerName) throws DBSetupException, SQLException {
         List<CustomerInfo> customerList = new ArrayList<>();
         try (EasyStatement stmt = new EasyStatement(connection, QueryManager.GET_CUSTOMER_INFO_BY_NAME)) {
             stmt.setString(QueryField.FIRST_NAME, "%" + customerName + "%");

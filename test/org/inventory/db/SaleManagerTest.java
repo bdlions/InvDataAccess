@@ -23,7 +23,7 @@ import org.junit.Test;
 public class SaleManagerTest {
 
     final static SaleManager saleManager = new SaleManager();
-    int customerUserId = 1222;
+    int customerUserId = 4646607;
 
     public SaleManagerTest() {
 
@@ -39,7 +39,6 @@ public class SaleManagerTest {
 
     @Before
     public void setUp() {
-       
 
     }
 
@@ -47,7 +46,7 @@ public class SaleManagerTest {
     public void tearDown() {
     }
 
-     @Test
+//     @Test
     public void addSaleOrderTest() {
         ProductInfo productInfo1 = new ProductInfo();
         productInfo1.setId(1);
@@ -75,10 +74,33 @@ public class SaleManagerTest {
         List<SaleInfo> saleInfoList = saleManager.getAllSaleOrders();
         System.out.println(saleInfoList);
     }
-    @Test
+//    @Test
+
     public void getSaleOrderTest() {
-      SaleInfo saleInfoInfo = saleManager.getSaleOrderInfo("order2");
+        SaleInfo saleInfoInfo = saleManager.getSaleOrderInfo("order2");
         System.out.println(saleInfoInfo.getOrderNo());
     }
 
+    @Test
+    public void updateSaleOrderTest() {
+        ProductInfo productInfo1 = new ProductInfo();
+        productInfo1.setId(1);
+        productInfo1.setUnitPrice(500);
+        productInfo1.setQuantity(800);
+        productInfo1.setDiscount(0);
+        productInfo1.setPurchaseOrderNo("order1");
+
+        List<ProductInfo> productList = new ArrayList<>();
+        productList.add(productInfo1);
+
+        SaleInfo saleInfo = new SaleInfo();
+        saleInfo.setProductList(productList);
+        saleInfo.setCustomerUserId(customerUserId);
+        saleInfo.setOrderNo("order2");
+        saleInfo.setStatusId(1);
+        saleInfo.setRemarks("rema2");
+        saleInfo.setSaleDate(123);
+        saleManager.updateSaleOrder(saleInfo);
+
+    }
 }

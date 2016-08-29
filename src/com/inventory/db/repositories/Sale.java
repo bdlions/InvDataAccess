@@ -49,7 +49,7 @@ public class Sale {
             stmt.executeUpdate();
         }
         this.addSaleOrderProductList(saleInfo);
-        //this.addShowroomStock(saleInfo);
+        this.addShowroomStock(saleInfo);
     }
 
     public void addSaleOrderProductList(SaleInfo saleInfo) throws DBSetupException, SQLException {
@@ -79,6 +79,47 @@ public class Sale {
                 stmt.setDouble(QueryField.STOCK_IN, 0);
                 //right now transaction category id constant. later update it from config file
                 stmt.setInt(QueryField.TRANSACTION_CATEGORY_ID, 5);
+                stmt.executeUpdate();
+            }
+        }
+    }
+
+    public void updateSaleOrder(SaleInfo saleInfo) throws DBSetupException, SQLException {
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.UPDATE_SALE_ORDER)) {
+            stmt.setString(QueryField.ORDER_NO, saleInfo.getOrderNo());
+            stmt.setInt(QueryField.CUSTOMER_USER_ID, saleInfo.getCustomerUserId());
+            stmt.setInt(QueryField.STATUS_ID, saleInfo.getStatusId());
+            stmt.setInt(QueryField.SALE_DATE, saleInfo.getSaleDate());
+            stmt.setDouble(QueryField.DISCOUNT, saleInfo.getDiscount());
+            stmt.setString(QueryField.REMARKS, saleInfo.getRemarks());
+            stmt.executeUpdate();
+        }
+        this.updateSaleOrderProductList(saleInfo);
+        this.updateShowroomStock(saleInfo);
+    }
+
+    public void updateSaleOrderProductList(SaleInfo saleInfo) throws DBSetupException, SQLException {
+        //right now we are using loop. later use insert batch
+        List<ProductInfo> productList = saleInfo.getProductList();
+        for (ProductInfo productInfo : productList) {
+            try (EasyStatement stmt = new EasyStatement(connection, QueryManager.UPDATE_SALE_ORDER_PRODUCT_LIST)) {
+                stmt.setInt(QueryField.PRODUCT_ID, productInfo.getId());
+                stmt.setString(QueryField.SALE_ORDER_NO, saleInfo.getOrderNo());
+                stmt.setDouble(QueryField.UNIT_PRICE, productInfo.getUnitPrice());
+                stmt.setDouble(QueryField.DISCOUNT, productInfo.getDiscount());
+                stmt.executeUpdate();
+            }
+        }
+    }
+
+    public void updateShowroomStock(SaleInfo saleInfo) throws DBSetupException, SQLException {
+        //right now we are using loop. later use insert batch
+        List<ProductInfo> productList = saleInfo.getProductList();
+        for (ProductInfo productInfo : productList) {
+              try (EasyStatement stmt = new EasyStatement(connection, QueryManager.UPDATE_SHOWROOM_STOCK)) {
+                stmt.setString(QueryField.PURCHASE_ORDER_NO, saleInfo.getOrderNo());
+                stmt.setInt(QueryField.PRODUCT_ID, productInfo.getId());
+                stmt.setDouble(QueryField.STOCK_IN, productInfo.getQuantity());
                 stmt.executeUpdate();
             }
         }

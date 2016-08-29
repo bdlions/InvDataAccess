@@ -9,6 +9,7 @@ import com.inventory.bean.ProductCategoryInfo;
 import com.inventory.bean.ProductInfo;
 import com.inventory.bean.ProductTypeInfo;
 import com.inventory.bean.UOMInfo;
+import com.inventory.db.query.helper.Constant;
 import com.inventory.db.query.helper.QueryField;
 import com.inventory.db.query.helper.QueryManager;
 import com.inventory.db.query.helper.EasyStatement;
@@ -100,6 +101,7 @@ public class Product {
             stmt.executeUpdate();
         }
     }
+
     public void updateProduct(ProductInfo productInfo) throws DBSetupException, SQLException {
 
         try (EasyStatement stmt = new EasyStatement(connection, QueryManager.UPDATE_PRODUCT_INFO)) {
@@ -113,6 +115,14 @@ public class Product {
             stmt.setString(QueryField.HEIGHT, productInfo.getHeight());
             stmt.setString(QueryField.WEIGHT, productInfo.getWeight());
             stmt.setDouble(QueryField.UNIT_PRICE, productInfo.getUnitPrice());
+            stmt.executeUpdate();
+        }
+    }
+
+    public void updateProductStatus(int productId) throws DBSetupException, SQLException {
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.UPDATE_PRODUCT_STATUS)) {
+            stmt.setInt(QueryField.ID, productId);
+            stmt.setBoolean(QueryField.STATUS_ID, Constant.STATUS_TYPE_INACTIVE);
             stmt.executeUpdate();
         }
     }
@@ -142,7 +152,7 @@ public class Product {
     public List<ProductInfo> getProductsInfoByNmae(String productName) throws DBSetupException, SQLException {
         List<ProductInfo> productList = new ArrayList<>();
         try (EasyStatement stmt = new EasyStatement(this.connection, QueryManager.GET_PRODUCT_INFO_BY_NAME);) {
-            stmt.setString(QueryField.NAME, "%"+productName+"%");
+            stmt.setString(QueryField.NAME, "%" + productName + "%");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 ProductInfo productInfo = new ProductInfo();
@@ -181,6 +191,5 @@ public class Product {
         }
         return productInfo;
     }
-    
 
 }

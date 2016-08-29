@@ -163,4 +163,25 @@ public class CustomerManager {
         }
     }
 
+    public void updateCustomerStatus(int customerUserId) {
+        CustomerInfo customerInfo = new CustomerInfo();
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+            user = new User(connection);
+            user.updateUserAccountStatus(customerUserId);
+            connection.close();
+        } catch (SQLException ex) {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+    }
+
 }

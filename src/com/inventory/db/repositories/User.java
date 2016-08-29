@@ -9,6 +9,7 @@ import com.inventory.bean.AddressCategoryInfo;
 import com.inventory.bean.AddressInfo;
 import com.inventory.bean.AddressTypeInfo;
 import com.inventory.bean.ProfileInfo;
+import com.inventory.db.query.helper.Constant;
 import com.inventory.db.query.helper.QueryField;
 import com.inventory.db.query.helper.QueryManager;
 import com.inventory.db.query.helper.EasyStatement;
@@ -165,7 +166,6 @@ public class User {
         //right now we are using loop. later use insert batch
         List<AddressInfo> addresses = userInfo.getAddresses();
         for (AddressInfo address : addresses) {
-            
             try (EasyStatement stmt = new EasyStatement(connection, QueryManager.UPDATE_USER_ADDRESS)) {
                 stmt.setInt(QueryField.USER_ID, userInfo.getId());
                 stmt.setInt(QueryField.ID, address.getId());
@@ -175,6 +175,14 @@ public class User {
                 stmt.setString(QueryField.ZIP, address.getZip());
                 stmt.executeUpdate();
             }
+        }
+    }
+
+    public void updateUserAccountStatus(int userId) throws DBSetupException, SQLException {
+        try (EasyStatement stmt = new EasyStatement(connection, QueryManager.UPDATE_USER_ACCOUNT_STATUS)) {
+            stmt.setInt(QueryField.ID, userId);
+            stmt.setBoolean(QueryField.STATUS_ID, Constant.STATUS_TYPE_INACTIVE);
+            stmt.executeUpdate();
         }
     }
 

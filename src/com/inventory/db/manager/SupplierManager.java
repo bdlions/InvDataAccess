@@ -144,5 +144,48 @@ public class SupplierManager {
         }
         return supplierInfo;
     }
-  
+
+    public void updateSupplier(SupplierInfo supplierInfo) {
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+            connection.setAutoCommit(false);
+            user = new User(connection);
+            user.updateUser(supplierInfo.getProfileInfo());
+            connection.commit();
+            connection.close();
+        } catch (SQLException ex) {
+            try {
+                if (connection != null) {
+                    connection.rollback();
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+    }
+
+    public void updateSupplierStatus(int customerUserId) {
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+            user = new User(connection);
+            user.updateUserAccountStatus(customerUserId);
+            connection.close();
+        } catch (SQLException ex) {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+    }
+
 }

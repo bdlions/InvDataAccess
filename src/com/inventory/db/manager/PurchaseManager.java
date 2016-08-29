@@ -123,4 +123,28 @@ public class PurchaseManager {
         }
         return purchaseOrderInfo;
     }
+      public void updatePurchaseOrder(PurchaseInfo purchaseInfo) {
+        Connection connection = null;
+        try {
+            connection = Database.getInstance().getConnection();
+            connection.setAutoCommit(false);
+
+            purchase = new Purchase(connection);
+            purchase.updatePurchaseOrder(purchaseInfo);
+
+            connection.commit();
+            connection.close();
+        } catch (SQLException ex) {
+            try {
+                if (connection != null) {
+                    connection.rollback();
+                    connection.close();
+                }
+            } catch (SQLException ex1) {
+                logger.error(ex1.getMessage());
+            }
+        } catch (DBSetupException ex) {
+            logger.error(ex.getMessage());
+        }
+    }
 }

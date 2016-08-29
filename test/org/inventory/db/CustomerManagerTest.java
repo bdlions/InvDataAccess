@@ -30,24 +30,25 @@ public class CustomerManagerTest {
      *
      */
     final static CustomerManager customerManager = new CustomerManager();
-    int customerUserId = 6310916; 
+    int customerUserId = 6310916;
+
     public CustomerManagerTest() {
-        
+
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
-        
+
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -74,7 +75,7 @@ public class CustomerManagerTest {
         AddressCategoryInfo addressCategoryInfo = new AddressCategoryInfo();
         addressCategoryInfo.setId(1);
         addressCategoryInfo.setTitle("Business");
-        
+
         addressInfo.setAddressTypeInfo(addressTypeInfo);
         addressInfo.setAddressCategoryInfo(addressCategoryInfo);
         List<AddressInfo> addresses = new ArrayList<>();
@@ -98,6 +99,7 @@ public class CustomerManagerTest {
         System.out.println(customerInfoInfo.getProfileInfo().getAddresses().get(0).getAddress());
     }
 //    @Test
+
     public void getCustomerInfoByNameTest() {
         List<CustomerInfo> customerInfoInfo = customerManager.getCustomersInfoByName("islam");
     }
@@ -123,7 +125,12 @@ public class CustomerManagerTest {
         userInfo.setAddresses(addresses);
         CustomerInfo customerInfo = new CustomerInfo();
         customerInfo.setProfileInfo(userInfo);
-         customerManager.updateCustomer(customerInfo);
+        customerManager.updateCustomer(customerInfo);
+    }
+    //    @Test
+    public void deleteCustomerInfoTest() {
+       customerManager.updateCustomerStatus(4646607);
     }
     
+
 }
